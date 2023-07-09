@@ -1,0 +1,114 @@
+package com.example.ecommerce.autenticacao;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import com.example.ecommerce.R;
+import com.example.ecommerce.databinding.ActivityCadastroBinding;
+import com.example.ecommerce.helper.FirebaseHelper;
+import com.example.ecommerce.model.Loja;
+import com.example.ecommerce.model.Usuario;
+
+public class CadastroActivity extends AppCompatActivity {
+
+    private ActivityCadastroBinding binding;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityCadastroBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        confiCliques();
+    }
+
+    public void validaDados(View view){
+        String nome = binding.editNome.getText().toString().trim();
+        String email = binding.editEmail.getText().toString().trim();
+        String senha = binding.editSenha.getText().toString().trim();
+        String confirmaSenha = binding.editConfirmaSenha.getText().toString().trim();
+
+        if (!nome.isEmpty()){
+            if (!email.isEmpty()){
+                if (!senha.isEmpty()){
+                    if (!confirmaSenha.isEmpty()){
+
+                        if (senha.equals(confirmaSenha)){
+
+                            binding.progressBar.setVisibility(View.VISIBLE);
+
+
+
+                            Usuario usuario = new Usuario();
+                            usuario.setNome(nome);
+                            usuario.setEmail(email);
+                            usuario.setSenha(senha);
+
+                            criarConta(usuario);
+
+
+                        }else {
+                            binding.editConfirmaSenha.requestFocus();
+                            binding.editConfirmaSenha.setError("Senha não confere.");
+                        }
+
+                    }else {
+                        binding.editConfirmaSenha.requestFocus();
+                        binding.editConfirmaSenha.setError("Confirma sua senha.");
+                    }
+
+                }else {
+                    binding.editSenha.requestFocus();
+                    binding.editSenha.setError("Informe sua senha.");
+                }
+
+            }else {
+                binding.editEmail.requestFocus();
+                binding.editEmail.setError("Infome seu email.");
+            }
+
+        }else {
+            binding.editNome.requestFocus();
+            binding.editNome.setError("Informe seu nome.");
+
+        }
+
+    }
+
+
+    private void criarConta(Usuario usuario){
+        FirebaseHelper.getAuth().createUserWithEmailAndPassword(
+                usuario.getEmail(), usuario.getSenha()
+        ).addOnCompleteListener(task -> {
+
+            if (task.isSuccessful()){
+
+                String id = task.getResult().getUser().getUid();
+
+                usuario.setId(id);
+                usuario.salvar();
+
+                Intent intent = new Intent();
+                intent.putExtra("email",usuario.getEmail());
+                setResult(RESULT_OK, intent);
+                finish();
+
+            }else {
+                Toast.makeText(this, FirebaseHelper.validaErro(task.getException().getMessage()), Toast.LENGTH_SHORT).show();
+            }
+
+            binding.progressBar.setVisibility(View.GONE);
+
+        });
+    }
+
+
+    private void confiCliques(){
+        binding.include.ibVoltar.setOnClickListener(view -> finish());
+        binding.btnLogin.setOnClickListener(view -> finish());
+    }
+}

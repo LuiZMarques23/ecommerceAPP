@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_cinza">#E4E4E4</color>
+    <color name="color_azul">#03A9F4</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorIconeOnBnv">#03A9F4</color>
+    <color name="colorIconeOffBnv">#A59D98</color>
+    <color name="color_delete">#F40909</color>
+</resources>

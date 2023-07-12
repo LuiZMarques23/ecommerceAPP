@@ -1,6 +1,11 @@
 package com.example.ecommerce.fragment.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,12 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.example.ecommerce.R;
+import com.example.ecommerce.activiy.usuario.DetalhesProdutoActivity;
 import com.example.ecommerce.adapter.CategoriaAdapter;
 import com.example.ecommerce.adapter.LojaProdutoAdapter;
 import com.example.ecommerce.databinding.FragmentUsuarioHomeBinding;
@@ -54,39 +55,42 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         configRvCategorias();
         configRvProdtudos();
         recuperaCategorias();
-        recuperaProdutos();
+
         recuperaFavoritos();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        recuperaProdutos();
     }
 
     private void recuperaFavoritos(){
+       if (FirebaseHelper.getAutenticado()){
+           DatabaseReference favoritoRef = FirebaseHelper.getDatabaseReference()
+                   .child("favoritos")
+                   .child(FirebaseHelper.getIdFirebase());
+           favoritoRef.addValueEventListener(new ValueEventListener() {
+               @Override
+               public void onDataChange(@NonNull DataSnapshot snapshot) {
+                   idsFavoritos.clear();
 
-        if (FirebaseHelper.getAutenticado()){
+                   for (DataSnapshot ds : snapshot.getChildren()){
+                       String idFavoritos = ds.getValue(String.class);
+                       idsFavoritos.add(idFavoritos);
+                   }
 
-            DatabaseReference favoritoRef = FirebaseHelper.getDatabaseReference()
-                    .child("favoritos")
-                    .child(FirebaseHelper.getIdFirebase());
-            favoritoRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                   categoriaAdapter.notifyDataSetChanged();
+               }
 
-                    idsFavoritos.clear();
+               @Override
+               public void onCancelled(@NonNull DatabaseError error) {
 
-                    for (DataSnapshot ds : snapshot.getChildren()){
-                        String idFavoritos = ds.getValue(String.class);
-                        idsFavoritos.add(idFavoritos);
-                    }
+               }
 
-
-                    categoriaAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-        }
+           });
+       }
     }
 
     private void configRvCategorias(){
@@ -121,11 +125,10 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         });
     }
 
-
     private void configRvProdtudos(){
         binding.rvProdutos.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         binding.rvProdutos.setHasFixedSize(true);
-        lojaProdutoAdapter = new LojaProdutoAdapter(produtoList, requireContext(), true, idsFavoritos, this, this);
+        lojaProdutoAdapter = new LojaProdutoAdapter(produtoList, requireContext(),true, idsFavoritos, this, this);
         binding.rvProdutos.setAdapter(lojaProdutoAdapter);
     }
     private void recuperaProdutos(){
@@ -175,15 +178,18 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
 
     @Override
     public void onClick(Produto produto) {
+        Intent intent = new Intent(requireContext(), DetalhesProdutoActivity.class);
+        intent.putExtra("produtoSelecionado", produto);
+        startActivity(intent);
 
     }
 
     @Override
-    public void onClickFavorito(String idProduto) {
-        if (!idsFavoritos.contains(idProduto)){
-            idsFavoritos.add(idProduto);
+    public void onClickFavorito(Produto produto) {
+        if (!idsFavoritos.contains(produto.getId())){
+            idsFavoritos.add(produto.getId());
         }else {
-            idsFavoritos.remove(idProduto);
+            idsFavoritos.remove(produto.getId());
         }
         Favorito.salvar(idsFavoritos);
 

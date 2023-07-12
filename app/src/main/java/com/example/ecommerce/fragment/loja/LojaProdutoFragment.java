@@ -2,18 +2,16 @@ package com.example.ecommerce.fragment.loja;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import com.example.ecommerce.R;
 import com.example.ecommerce.activiy.loja.LojaFormProdutoActivity;
@@ -74,7 +72,7 @@ public class LojaProdutoFragment extends Fragment implements LojaProdutoAdapter.
     private void configRv(){
         binding.rvProdutos.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         binding.rvProdutos.setHasFixedSize(true);
-        lojaProdutoAdapter = new LojaProdutoAdapter(produtoList, requireContext(),false,new ArrayList<>(),this, null);
+        lojaProdutoAdapter = new LojaProdutoAdapter(produtoList, requireContext(), false, new ArrayList<>(), this, null);
         binding.rvProdutos.setAdapter(lojaProdutoAdapter);
     }
     private void recuperaProdutos(){
@@ -83,17 +81,20 @@ public class LojaProdutoFragment extends Fragment implements LojaProdutoAdapter.
         produtoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                produtoList.clear();
-                for (DataSnapshot ds : snapshot.getChildren()){
-                    Produto produto = ds.getValue(Produto.class);
-                    produtoList.add(produto);
+
+                if (snapshot.exists()) {
+                    produtoList.clear();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Produto produto = ds.getValue(Produto.class);
+                        produtoList.add(produto);
+                    }
+                    listEmpty();
+
+                    binding.progressBar.setVisibility(View.GONE);
+                    Collections.reverse(produtoList);
+                    lojaProdutoAdapter.notifyDataSetChanged();
+
                 }
-                listEmpty();
-
-                binding.progressBar.setVisibility(View.GONE);
-                Collections.reverse(produtoList);
-                lojaProdutoAdapter.notifyDataSetChanged();
-
             }
 
             @Override

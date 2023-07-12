@@ -23,12 +23,13 @@ import java.util.List;
 
 public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.MyViewHolder> {
 
-    private List<Produto> produtoList;
-    private Context context;
-    private boolean favorito;
-    private List<String> idsFavoritos;
-    private OnClickLister onClickLister;
-    private OnClickFavorito onClickFavorito;
+    private final List<Produto> produtoList;
+    private final Context context;
+    private final boolean favorito;
+    private final List<String> idsFavoritos;
+    private final OnClickLister onClickLister;
+    private final OnClickFavorito onClickFavorito;
+
 
     public LojaProdutoAdapter(List<Produto> produtoList, Context context, boolean favorito, List<String> idsFavoritos, OnClickLister onClickLister, OnClickFavorito onClickFavorito) {
         this.produtoList = produtoList;
@@ -66,7 +67,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
             if (porcentagem >= 10){
                 holder.txtDescontoProduto.setText(context.getString(R.string.valor_off, porcentagem, "%"));
             }else {
-                String porcent = String.valueOf(porcentagem).replace("0", "");
+                String porcent = String.valueOf(porcentagem).replace("0", "0");
                 holder.txtDescontoProduto.setText(context.getString(R.string.valor_off, Integer.parseInt(porcent), "%"));
             }
 
@@ -74,13 +75,14 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
             holder.txtDescontoProduto.setVisibility(View.GONE);
         }
 
+
         holder.likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
                 if (FirebaseHelper.getAutenticado()){
-                    onClickFavorito.onClickFavorito(produto.getId());
+                    onClickFavorito.onClickFavorito(produto);
                 }else {
-                    Toast.makeText(context, "Você não está autenticado no app.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Voçê não esta autenticado no app.", Toast.LENGTH_SHORT).show();
                     holder.likeButton.setLiked(false);
                 }
 
@@ -88,17 +90,19 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
 
             @Override
             public void unLiked(LikeButton likeButton) {
-                onClickFavorito.onClickFavorito(produto.getId());
+                onClickFavorito.onClickFavorito(produto);
 
             }
         });
 
 
 
+
+
+
         for (int i = 0; i < produto.getUrlImagens().size(); i++) {
             if (produto.getUrlImagens().get(i).getIndex() == 0 ){
                 Picasso.get().load(produto.getUrlImagens().get(i).getCaminhoImagem()).into(holder.imagemProduto);
-
 
             }
         }
@@ -116,9 +120,13 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
         void onClick(Produto produto);
     }
 
-    public interface OnClickFavorito {
-        void onClickFavorito(String idProduto);
+    public interface OnClickFavorito{
+        void onClick(Produto produto);
+
+        void onClickFavorito(Produto produto);
     }
+
+
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
 

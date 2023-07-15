@@ -1,6 +1,6 @@
 package com.example.ecommerce.fragment.usuario;
 
-import android.os.Bundle;
+import  android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +24,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdapter.OnClickFavorito, LojaProdutoAdapter.OnClickLister {
+
+public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdapter.OnClickLister, LojaProdutoAdapter.OnClickFavorito {
 
     private FragmentUsuarioFavoritoBinding binding;
 
@@ -35,7 +36,6 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
     private final List<String> idsFavoritos = new ArrayList<>();
 
     private LojaProdutoAdapter lojaProdutoAdapter;
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -52,10 +52,8 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
 
         recuperaFavoritos();
 
-
+        recuperaProdutos();
     }
-
-
 
     private void configRvProdtudos(){
         binding.rvProdutos.setLayoutManager(new GridLayoutManager(requireContext(), 2));
@@ -64,13 +62,12 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
         binding.rvProdutos.setAdapter(lojaProdutoAdapter);
     }
 
-
     private void recuperaFavoritos(){
         if (FirebaseHelper.getAutenticado()){
-           favoritoRef = FirebaseHelper.getDatabaseReference()
+            favoritoRef = FirebaseHelper.getDatabaseReference()
                     .child("favoritos")
                     .child(FirebaseHelper.getIdFirebase());
-            eventListener = favoritoRef.addValueEventListener(new ValueEventListener() {
+           eventListener = favoritoRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     idsFavoritos.clear();
@@ -80,8 +77,8 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
                         idsFavoritos.add(idFavoritos);
                     }
                     Collections.reverse(idsFavoritos);
-                    listEmpty();
 
+                    listEmpty();
                 }
 
                 @Override
@@ -105,11 +102,10 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
                     Produto produto = snapshot.getValue(Produto.class);
                     produtoList.add(produto);
 
-
-                   if (produtoList.size() == idsFavoritos.size()){
-                       binding.progressBar.setVisibility(View.GONE);
-                       lojaProdutoAdapter.notifyDataSetChanged();
-                   }
+                    if (produtoList.size() == idsFavoritos.size()){
+                        binding.progressBar.setVisibility(View.GONE);
+                        lojaProdutoAdapter.notifyDataSetChanged();
+                    }
 
                 }
 
@@ -118,26 +114,25 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
 
                 }
             });
-            
+
         }
     }
 
-    private void listEmpty(){
-        if (idsFavoritos.isEmpty()){
+    private void listEmpty() {
+        if (idsFavoritos.isEmpty()) {
             binding.progressBar.setVisibility(View.GONE);
-            binding.textInfo.setText("Nenhum produto na sua lista.");
-        }else {
+            binding.textInfo.setText("Nenhum produto localizado.");
+        } else {
             binding.textInfo.setText("");
 
             recuperaProdutos();
         }
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        favoritoRef.removeEventListener(eventListener);
+        if (favoritoRef != null) favoritoRef.removeEventListener(eventListener);
         binding = null;
     }
 
@@ -148,7 +143,6 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
 
     @Override
     public void onClickFavorito(Produto produto) {
-
         if (!idsFavoritos.contains(produto.getId())){
             idsFavoritos.add(produto.getId());
             produtoList.add(produto);
@@ -159,9 +153,9 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
         Favorito.salvar(idsFavoritos);
 
         lojaProdutoAdapter.notifyDataSetChanged();
-
     }
 }
+
 
 
 

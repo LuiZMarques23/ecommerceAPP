@@ -51,11 +51,13 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Produto produto = produtoList.get(position);
 
+
         holder.textNomeProduto.setText(produto.getTitulo());
 
-        if (favorito){
-            if (idsFavoritos.contains(produto.getId())){
+        if (favorito) {
+            if (idsFavoritos.contains(produto.getId())) {
                 holder.likeButton.setLiked(true);
+
             }
         }
 
@@ -82,7 +84,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
                 if (FirebaseHelper.getAutenticado()){
                     onClickFavorito.onClickFavorito(produto);
                 }else {
-                    Toast.makeText(context, "Voçê não esta autenticado no app.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Você não esta autenticado no app.", Toast.LENGTH_SHORT).show();
                     holder.likeButton.setLiked(false);
                 }
 
@@ -93,11 +95,9 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
                 onClickFavorito.onClickFavorito(produto);
 
             }
+
+
         });
-
-
-
-
 
 
         for (int i = 0; i < produto.getUrlImagens().size(); i++) {
@@ -121,8 +121,6 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
     }
 
     public interface OnClickFavorito{
-        void onClick(Produto produto);
-
         void onClickFavorito(Produto produto);
     }
 
@@ -140,7 +138,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
             textNomeProduto = itemView.findViewById(R.id.textNomeProduto);
             txtValorProduto = itemView.findViewById(R.id.txtValorProduto);
             txtDescontoProduto = itemView.findViewById(R.id.txtDescontoProduto);
-            likeButton = itemView.findViewById(R.id.likeButtom);
+            likeButton = itemView.findViewById(R.id.likeButton);
         }
     }
 }

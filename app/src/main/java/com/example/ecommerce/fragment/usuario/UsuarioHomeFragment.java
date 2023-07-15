@@ -53,7 +53,7 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         super.onViewCreated(view, savedInstanceState);
 
         configRvCategorias();
-        configRvProdtudos();
+
         recuperaCategorias();
 
         recuperaFavoritos();
@@ -77,8 +77,8 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
                    idsFavoritos.clear();
 
                    for (DataSnapshot ds : snapshot.getChildren()){
-                       String idFavoritos = ds.getValue(String.class);
-                       idsFavoritos.add(idFavoritos);
+                       String idFavorito = ds.getValue(String.class);
+                       idsFavoritos.add(idFavorito);
                    }
 
                    categoriaAdapter.notifyDataSetChanged();
@@ -124,8 +124,7 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
             }
         });
     }
-
-    private void configRvProdtudos(){
+    private void configRvProdtudos(List<Produto> produtoList){
         binding.rvProdutos.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         binding.rvProdutos.setHasFixedSize(true);
         lojaProdutoAdapter = new LojaProdutoAdapter(produtoList, requireContext(),true, idsFavoritos, this, this);
@@ -142,11 +141,13 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
                     Produto produto = ds.getValue(Produto.class);
                     produtoList.add(produto);
                 }
-                listEmpty();
+                listEmpty(produtoList);
 
                 binding.progressBar.setVisibility(View.GONE);
                 Collections.reverse(produtoList);
-                lojaProdutoAdapter.notifyDataSetChanged();
+
+
+                configRvProdtudos(produtoList);
 
             }
 
@@ -157,19 +158,14 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         });
     }
 
-    private void listEmpty(){
-        if (produtoList.isEmpty()){
-            binding.textInfo.setText("Nenhum produto cadastrado.");
-        }else {
+    private void listEmpty(List<Produto> produtoList) {
+        if (produtoList.isEmpty()) {
+            binding.textInfo.setText("Nenhum produto localizado.");
+        } else {
             binding.textInfo.setText("");
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 
     @Override
     public void onClickListener(Categoria categoria) {

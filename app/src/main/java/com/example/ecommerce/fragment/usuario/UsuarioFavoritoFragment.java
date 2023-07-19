@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.example.ecommerce.R;
 import com.example.ecommerce.adapter.LojaProdutoAdapter;
 import com.example.ecommerce.databinding.FragmentUsuarioFavoritoBinding;
 import com.example.ecommerce.helper.FirebaseHelper;
@@ -58,7 +59,7 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
     private void configRvProdtudos(){
         binding.rvProdutos.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         binding.rvProdutos.setHasFixedSize(true);
-        lojaProdutoAdapter = new LojaProdutoAdapter(produtoList, requireContext(),true, idsFavoritos, this, this);
+        lojaProdutoAdapter = new LojaProdutoAdapter(R.layout.item_produto_adapter,produtoList, requireContext(),true, idsFavoritos, this, this);
         binding.rvProdutos.setAdapter(lojaProdutoAdapter);
     }
 

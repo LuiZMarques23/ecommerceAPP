@@ -106,6 +106,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProdutos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
@@ -147,7 +148,7 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/likeButtom"
+            app:layout_constraintEnd_toStartOf="@+id/likeButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,7 +166,7 @@
             tools:text="R$ 199,99" />
 
         <com.like.LikeButton
-            android:id="@+id/likeButtom"
+            android:id="@+id/likeButton"
             android:layout_width="50dp"
             android:layout_height="0dp"
             android:layout_marginEnd="24dp"

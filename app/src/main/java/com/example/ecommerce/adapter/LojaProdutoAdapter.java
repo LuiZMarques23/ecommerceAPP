@@ -23,6 +23,7 @@ import java.util.List;
 
 public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.MyViewHolder> {
 
+    private final int layout;
     private final List<Produto> produtoList;
     private final Context context;
     private final boolean favorito;
@@ -31,7 +32,8 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
     private final OnClickFavorito onClickFavorito;
 
 
-    public LojaProdutoAdapter(List<Produto> produtoList, Context context, boolean favorito, List<String> idsFavoritos, OnClickLister onClickLister, OnClickFavorito onClickFavorito) {
+    public LojaProdutoAdapter(int layout, List<Produto> produtoList, Context context, boolean favorito, List<String> idsFavoritos, OnClickLister onClickLister, OnClickFavorito onClickFavorito) {
+        this.layout = layout;
         this.produtoList = produtoList;
         this.context = context;
         this.favorito = favorito;
@@ -43,7 +45,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_produto_adapter,parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(layout,parent, false);
         return new MyViewHolder(itemView) ;
     }
 
@@ -54,12 +56,15 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
 
         holder.textNomeProduto.setText(produto.getTitulo());
 
-        if (favorito) {
-            if (idsFavoritos.contains(produto.getId())) {
+        if (favorito){
+            if (idsFavoritos.contains(produto.getId())){
                 holder.likeButton.setLiked(true);
-
             }
+        }else {
+            holder.likeButton.setVisibility(View.GONE);
         }
+
+
 
         if (produto.getValorAntigo() > 0){
 
@@ -69,7 +74,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
             if (porcentagem >= 10){
                 holder.txtDescontoProduto.setText(context.getString(R.string.valor_off, porcentagem, "%"));
             }else {
-                String porcent = String.valueOf(porcentagem).replace("0", "0");
+                String porcent = String.valueOf(porcentagem).replace("0", "");
                 holder.txtDescontoProduto.setText(context.getString(R.string.valor_off, Integer.parseInt(porcent), "%"));
             }
 
@@ -77,17 +82,15 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
             holder.txtDescontoProduto.setVisibility(View.GONE);
         }
 
-
         holder.likeButton.setOnLikeListener(new OnLikeListener() {
             @Override
             public void liked(LikeButton likeButton) {
                 if (FirebaseHelper.getAutenticado()){
                     onClickFavorito.onClickFavorito(produto);
                 }else {
-                    Toast.makeText(context, "Você não esta autenticado no app.", Toast.LENGTH_SHORT).show();
-                    holder.likeButton.setLiked(false);
-                }
+                    Toast.makeText(context, "Voçê não esta autenticado no app.", Toast.LENGTH_SHORT).show();
 
+                }
             }
 
             @Override
@@ -95,9 +98,9 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
                 onClickFavorito.onClickFavorito(produto);
 
             }
-
-
         });
+
+
 
 
         for (int i = 0; i < produto.getUrlImagens().size(); i++) {
@@ -138,7 +141,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
             textNomeProduto = itemView.findViewById(R.id.textNomeProduto);
             txtValorProduto = itemView.findViewById(R.id.txtValorProduto);
             txtDescontoProduto = itemView.findViewById(R.id.txtDescontoProduto);
-            likeButton = itemView.findViewById(R.id.likeButton);
+            likeButton = itemView.findViewById(R.id.likeButtom);
         }
     }
 }

@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
+        android:layout_width="170dp"
         android:layout_height="220dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="5dp"
@@ -67,7 +67,8 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginVertical="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -75,19 +76,22 @@
 
                 <TextView
                     android:id="@+id/txtValorProduto"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     tools:text="149,99" />
 
                 <TextView
                     android:id="@+id/txtDescontoProduto"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:background="@drawable/bg_desconto"
                     android:textAlignment="textEnd"
-                    android:textColor="#00A650"
-                    tools:text="10% OFF" />
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:textStyle="bold"
+                    tools:text="-10%" />
 
             </LinearLayout>
 

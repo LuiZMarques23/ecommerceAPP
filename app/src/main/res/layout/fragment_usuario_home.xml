@@ -11,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:inputType="textCapSentences"
-        app:queryHint="Produtos etc..."
-        app:iconifiedByDefault="false"
-        app:queryBackground="@android:color/transparent"
         android:background="@drawable/bg_pesquisa"
+        android:inputType="textCapSentences"
+        app:iconifiedByDefault="false"
+        android:theme="@style/Search_View_theme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryBackground="@android:color/transparent"
+        app:queryHint="Produtos etc..." />
 
     <TextView
         android:id="@+id/textView9"

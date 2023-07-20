@@ -48,5 +48,14 @@
 
     </style>
 
+    <style name="Search_View_theme">
+        <item name="colorAccent">#FFD7BB</item>
+        <item name="colorControlNormal">#FFD7BB</item>
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:textColorHint">#FFD7BB</item>
+        <item name="android:textSize">14sp</item>
+
+    </style>
+
 
 </resources>

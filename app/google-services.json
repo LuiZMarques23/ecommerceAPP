@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "771794250572",
-    "project_id": "ecommerce-cee3d",
-    "storage_bucket": "ecommerce-cee3d.appspot.com"
+    "project_number": "231889673294",
+    "project_id": "comercio-palestraitalia",
+    "storage_bucket": "comercio-palestraitalia.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:771794250572:android:0b1fd9593c44f16e4afde9",
+        "mobilesdk_app_id": "1:231889673294:android:c7f3fb90d78de6da13b71f",
         "android_client_info": {
-          "package_name": "com.example.ecommerce"
+          "package_name": "com.example.MerceariaPalestraitalia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "771794250572-sllqe02b1s6d30qqcekrtlu0r7np87v1.apps.googleusercontent.com",
+          "client_id": "231889673294-q87m5usou402a66i672q6439oivu3nt5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.ecommerce",
-            "certificate_hash": "8bea82589cd9b9860cc652a81c1ffc1961e2255b"
+            "package_name": "com.example.MerceariaPalestraitalia",
+            "certificate_hash": "a8b58c1c9a010f1b16258163db0ca12287169d69"
           }
         },
         {
-          "client_id": "771794250572-n53labcclsp6h1fdr178dmpjc9jvhkut.apps.googleusercontent.com",
+          "client_id": "231889673294-sj9fam93o3r9pp3835drdk3skm8llipb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBBvVInWpX0xYYt_ohmlJ3YHDU0n0X6bYE"
+          "current_key": "AIzaSyD19xQ8MdPHO9-KMt8xzJ1Sra18agL8bPE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "771794250572-n53labcclsp6h1fdr178dmpjc9jvhkut.apps.googleusercontent.com",
+              "client_id": "231889673294-sj9fam93o3r9pp3835drdk3skm8llipb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

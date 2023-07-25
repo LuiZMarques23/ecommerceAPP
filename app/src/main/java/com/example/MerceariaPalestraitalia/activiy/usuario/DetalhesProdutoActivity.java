@@ -97,6 +97,8 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         itemPedido.setQuantidade(1);
         itemPedido.setValor(produtoSelecionado.getValorAtual());
 
+        itemPedidoDAO.salvar(itemPedido);
+
         itemDAO.salvar(produtoSelecionado);
     }
 

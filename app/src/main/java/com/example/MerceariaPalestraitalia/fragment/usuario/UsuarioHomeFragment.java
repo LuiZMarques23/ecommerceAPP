@@ -46,6 +46,9 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
                              Bundle savedInstanceState) {
         binding = FragmentUsuarioHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
+
+
     }
 
     @Override
@@ -58,6 +61,7 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
 
         recuperaFavoritos();
 
+
     }
 
     @Override
@@ -65,6 +69,8 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         super.onStart();
         recuperaProdutos();
     }
+
+
 
     private void recuperaFavoritos(){
        if (FirebaseHelper.getAutenticado()){

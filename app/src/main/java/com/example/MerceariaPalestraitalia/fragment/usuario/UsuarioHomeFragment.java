@@ -57,9 +57,7 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
 
         configRvCategorias();
 
-        recuperaCategorias();
 
-        recuperaFavoritos();
 
 
     }
@@ -67,10 +65,15 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
     @Override
     public void onStart() {
         super.onStart();
-        recuperaProdutos();
+
+        recuperaDados();
     }
 
-
+    private void recuperaDados(){
+        recuperaCategorias();
+        recuperaFavoritos();
+        recuperaProdutos();
+    }
 
     private void recuperaFavoritos(){
        if (FirebaseHelper.getAutenticado()){
@@ -87,7 +90,6 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
                        idsFavoritos.add(idFavorito);
                    }
 
-                   categoriaAdapter.notifyDataSetChanged();
                }
 
                @Override

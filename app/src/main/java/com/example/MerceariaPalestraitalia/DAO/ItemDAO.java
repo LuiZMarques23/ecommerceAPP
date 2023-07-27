@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.MerceariaPalestraitalia.model.ItemPedido;
 import com.example.MerceariaPalestraitalia.model.Produto;
 
 public class ItemDAO {
@@ -41,6 +42,21 @@ public class ItemDAO {
         }
 
         return idRetorno;
+
+    }
+
+    public boolean remover(ItemPedido itemPedido){
+        String where = "id=?";
+        String[] args = {String.valueOf(itemPedido.getId())};
+        Log.i("INFODB:", "Sucesso ao remover o itemPedido.");
+        try {
+            write.delete(DBHelper.TB_ITEM, where, args);
+        }catch (Exception e){
+            Log.i("INFODB:", "Erro ao remover o itemPedido." + e.getMessage());
+            return false;
+        }
+
+        return true;
 
     }
 }

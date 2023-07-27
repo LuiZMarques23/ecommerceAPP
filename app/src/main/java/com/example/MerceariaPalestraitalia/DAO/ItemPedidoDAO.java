@@ -42,6 +42,38 @@ public class ItemPedidoDAO {
         return true;
 
     }
+    public boolean atualizar(ItemPedido itemPedido){
+        ContentValues values = new ContentValues();
+        values.put("quantidade", itemPedido.getQuantidade());
+
+        String where = "id=?";
+        String[] args = {String.valueOf(itemPedido.getId())};
+        Log.i("INFODB:", "Sucesso ao atualizar o itemPedido.");
+        try {
+            write.update(DBHelper.TB_ITEM_PEDIDO, values, where, args);
+        }catch (Exception e){
+            Log.i("INFODB:", "Erro ao atualizar o itemPedido." + e.getMessage());
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public boolean remover(ItemPedido itemPedido){
+        String where = "id=?";
+        String[] args = {String.valueOf(itemPedido.getId())};
+        Log.i("INFODB:", "Sucesso ao remover o itemPedido.");
+        try {
+            write.delete(DBHelper.TB_ITEM_PEDIDO, where, args);
+        }catch (Exception e){
+            Log.i("INFODB:", "Erro ao remover o itemPedido." + e.getMessage());
+            return false;
+        }
+
+        return true;
+
+    }
     public Produto getProduto(int idProduto){
         Produto produto = null;
         List<ImagemUpload> uploadList = new ArrayList<>();
@@ -97,7 +129,7 @@ public class ItemPedidoDAO {
     public Double getTotalCarinho(){
         double total = 0;
         for (ItemPedido itemPedido : getList()){
-            total += itemPedido.getValor();
+            total += (itemPedido.getValor() * itemPedido.getQuantidade());
         }
         return total;
     }

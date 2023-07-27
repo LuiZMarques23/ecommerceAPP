@@ -2,9 +2,11 @@ package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.adapter.LojaProdutoAdapter;
 import com.example.MerceariaPalestraitalia.adapter.SliderAdapter;
 import com.example.MerceariaPalestraitalia.databinding.ActivityDetalhesProdutoBinding;
+import com.example.MerceariaPalestraitalia.databinding.DialogAddItemCarrinhoBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Favorito;
 import com.example.MerceariaPalestraitalia.model.ItemPedido;
@@ -44,6 +47,8 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
 
     private ItemDAO itemDAO;
     private ItemPedidoDAO itemPedidoDAO;
+
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +93,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
             }
         });
 
-        binding.btnAddCarinho.setOnClickListener(view -> addCarrinho());
+        binding.btnAddCarinho.setOnClickListener(view -> showDialogCarrinho());
     }
 
     private void addCarrinho(){
@@ -100,6 +105,11 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         itemPedidoDAO.salvar(itemPedido);
 
         itemDAO.salvar(produtoSelecionado);
+
+        Intent intent = new Intent(this, MainActivityUsuario.class);
+        intent.putExtra("id", 2);
+        startActivity(intent);
+        finish();
     }
 
     private void configRvProdtudos(List<Produto> produtoList){
@@ -188,6 +198,26 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         binding.textDescricao.setText(produtoSelecionado.getDescricao());
         binding.textValor.setText(getString(R.string.valor, GetMask.getValor(produtoSelecionado.getValorAtual())));
 
+
+    }
+
+    private void showDialogCarrinho(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
+
+        DialogAddItemCarrinhoBinding dialogBinding = DialogAddItemCarrinhoBinding
+                .inflate(LayoutInflater.from(this));
+
+        dialogBinding.btnFechar.setOnClickListener(view -> dialog.dismiss());
+
+        dialogBinding.btnIrcarrinho.setOnClickListener(v -> {
+            addCarrinho();
+            dialog.dismiss();
+        });
+
+        builder.setView(dialogBinding.getRoot());
+
+        dialog = builder.create();
+        dialog.show();
 
     }
 

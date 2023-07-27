@@ -6,7 +6,7 @@ import com.onesignal.OneSignal;
 
 public class ApplicationClass extends Application {
 
-    private static final String ONESIGNAL_APP_ID ="AIzaSyD19xQ8MdPHO9-KMt8xzJ1Sra18agL8bPE";
+    private static final String ONESIGNAL_APP_ID ="664ca6c4-6c13-498b-b765-aacbe0ad88cc";
 
     @Override
     public void onCreate() {

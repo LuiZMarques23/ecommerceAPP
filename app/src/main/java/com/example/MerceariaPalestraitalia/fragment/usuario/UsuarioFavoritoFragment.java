@@ -1,5 +1,6 @@
 package com.example.MerceariaPalestraitalia.fragment.usuario;
 
+import android.content.Intent;
 import  android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.MerceariaPalestraitalia.R;
+import com.example.MerceariaPalestraitalia.activiy.usuario.DetalhesProdutoActivity;
 import com.example.MerceariaPalestraitalia.adapter.LojaProdutoAdapter;
 import com.example.MerceariaPalestraitalia.databinding.FragmentUsuarioFavoritoBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
@@ -139,6 +141,9 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
 
     @Override
     public void onClick(Produto produto) {
+        Intent intent = new Intent(requireContext(), DetalhesProdutoActivity.class);
+        intent.putExtra("produtoSelecionado", produto);
+        startActivity(intent);
 
     }
 

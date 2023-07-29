@@ -14,6 +14,7 @@ public class UsuariFormEnderecoActivity extends AppCompatActivity {
 
     private ActivityUsuariFormEnderecoBinding binding;
     private Endereco endereco;
+    private boolean novoEndereco = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,28 @@ public class UsuariFormEnderecoActivity extends AppCompatActivity {
         iniciaComponentes();
 
         configClicks();
+
+        getExtra();
+    }
+
+    private void getExtra(){
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null){
+            endereco = (Endereco) bundle.getSerializable("enderecoSelecionado");
+
+            configDados();
+            novoEndereco = false;
+        }
+    }
+
+    private void configDados(){
+        binding.edtNomeEndereco.setText(endereco.getNomeEndereco());
+        binding.edtCEP.setText(endereco.getCep());
+        binding.edtUF.setText(endereco.getUf());
+        binding.edtNumEndereco.setText(endereco.getNumero());
+        binding.edtLogradouro.setText(endereco.getLogradouro());
+        binding.edtBairro.setText(endereco.getBairro());
+        binding.edtMunicPio.setText(endereco.getLocalidade());
     }
 
     private void configClicks(){
@@ -38,14 +61,14 @@ public class UsuariFormEnderecoActivity extends AppCompatActivity {
         String numero = binding.edtNumEndereco.getText().toString().trim();
         String logradouro = binding.edtLogradouro.getText().toString().trim();
         String bairro = binding.edtBairro.getText().toString().trim();
-        String município = binding.edtMunicPio.getText().toString().trim();
+        String municipio = binding.edtMunicPio.getText().toString().trim();
 
         if (!nomeEndereco.isEmpty()){
             if (!cep.isEmpty()){
                 if (!uf.isEmpty()){
                     if (!logradouro.isEmpty()){
                         if (!bairro.isEmpty()){
-                            if (!município.isEmpty()){
+                            if (!municipio.isEmpty()){
 
 
                                 ocultaTeclado();
@@ -58,38 +81,43 @@ public class UsuariFormEnderecoActivity extends AppCompatActivity {
                                 endereco.setNumero(numero);
                                 endereco.setLogradouro(logradouro);
                                 endereco.setBairro(bairro);
-                                endereco.setLocalidade(município);
+                                endereco.setLocalidade(municipio);
 
                                 endereco.salvar();
-                                finish();
+                                binding.progressBar.setVisibility(View.GONE);
 
+                                if (novoEndereco){
+                                    finish();
+                                }
+
+                            }else {
                                 binding.edtMunicPio.requestFocus();
-                                binding.edtMunicPio.setError("Informação obrigatória!");
+                                binding.edtMunicPio.setError("Digite seu Município!");
                             }
 
                         }else {
                             binding.edtBairro.requestFocus();
-                            binding.edtBairro.setError("Informação obrigatória!");
+                            binding.edtBairro.setError("Digite Seu bairro!");
                         }
 
                     }else {
                         binding.edtLogradouro.requestFocus();
-                        binding.edtLogradouro.setError("Informação obrigatória!");
+                        binding.edtLogradouro.setError("Digite seu logradouro!");
                     }
 
                 }else {
                     binding.edtUF.requestFocus();
-                    binding.edtUF.setError("Informação obrigatória!");
+                    binding.edtUF.setError("Digite seu UF!");
                 }
 
             }else {
                 binding.edtCEP.requestFocus();
-                binding.edtCEP.setError("Informação obrigatória!");
+                binding.edtCEP.setError("Digite seu CEP!");
             }
 
         }else {
             binding.edtNomeEndereco.requestFocus();
-            binding.edtNomeEndereco.setError("Informação obrigatória!");
+            binding.edtNomeEndereco.setError("Digite seu endereço!");
         }
     }
 

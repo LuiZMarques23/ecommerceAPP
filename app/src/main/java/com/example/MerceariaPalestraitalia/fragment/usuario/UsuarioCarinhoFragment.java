@@ -1,5 +1,6 @@
 package com.example.MerceariaPalestraitalia.fragment.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.MerceariaPalestraitalia.DAO.ItemDAO;
 import com.example.MerceariaPalestraitalia.DAO.ItemPedidoDAO;
 import com.example.MerceariaPalestraitalia.R;
+import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioResumoPedidoActivity;
 import com.example.MerceariaPalestraitalia.adapter.CarrinhoAdapter;
+import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
 import com.example.MerceariaPalestraitalia.databinding.DialogRemoverCarrinhoBinding;
 import com.example.MerceariaPalestraitalia.databinding.FragmentUsuarioCarinhoBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
@@ -63,6 +66,28 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
 
         configRv();
         recuperaFavoritos();
+        configCliks();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        configInfo();
+    }
+
+    private void configCliks(){
+        binding.btnContinuar.setOnClickListener(view -> {
+            Intent intent;
+            if (FirebaseHelper.getAutenticado()){
+                intent =  new Intent(requireContext(), UsuarioResumoPedidoActivity.class);
+
+            }else {
+                intent = new Intent(requireContext(), LoginActivity.class);
+
+            }
+            startActivity(intent);
+        });
     }
 
     private void configRv(){
@@ -73,13 +98,6 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
         binding.rvProdutos.setAdapter(carrinhoAdapter);
 
         configTotalCarrinho();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        configInfo();
     }
 
     private void recuperaFavoritos(){
@@ -106,7 +124,7 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
     }
 
     private void configTotalCarrinho(){
-        binding.textValor.setText(getString(R.string.valor_total_carrinho, GetMask.getValor(itemPedidoDAO.getTotalCarinho())));
+        binding.textValor.setText(getString(R.string.valor_total_carrinho, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
     }
 
     private void configQtdProduto(int position, String opercao ){

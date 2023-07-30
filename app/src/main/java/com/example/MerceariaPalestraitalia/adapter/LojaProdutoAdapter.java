@@ -85,6 +85,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
                     onClickFavorito.onClickFavorito(produto);
                 }else {
                     Toast.makeText(context, "Voçê não esta autenticado no app.", Toast.LENGTH_SHORT).show();
+                    holder.likeButton.setLiked(false);
 
                 }
             }

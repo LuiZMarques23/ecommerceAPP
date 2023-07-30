@@ -2,20 +2,25 @@ package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.adapter.EnderecoAdapter;
 import com.example.MerceariaPalestraitalia.databinding.ActivityUsuarioEnderecoBinding;
+import com.example.MerceariaPalestraitalia.databinding.DialogDeleteBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Endereco;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.tsuryo.swipeablerv.SwipeLeftRightCallback;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +31,7 @@ public class UsuarioEnderecoActivity extends AppCompatActivity implements Endere
     private ActivityUsuarioEnderecoBinding binding;
     private EnderecoAdapter enderecoAdapter;
     private final List<Endereco> enderecoList = new ArrayList<>();
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,60 @@ public class UsuarioEnderecoActivity extends AppCompatActivity implements Endere
         binding.rvEnderecos.setHasFixedSize(true);
         enderecoAdapter = new EnderecoAdapter(enderecoList, this,this);
         binding.rvEnderecos.setAdapter(enderecoAdapter);
+
+        binding.rvEnderecos.setListener(new SwipeLeftRightCallback.Listener() {
+            @Override
+            public void onSwipedLeft(int position) {
+
+            }
+
+            @Override
+            public void onSwipedRight(int position) {
+
+                showDialogDelete(enderecoList.get(position));
+            }
+        });
+    }
+
+    private void showDialogDelete(Endereco endereco){
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                this, R.style.CustomAlertDialog2);
+
+        View view = getLayoutInflater().inflate(R.layout.dialog_form_cadegoria, null);
+
+        DialogDeleteBinding deleteBinding = DialogDeleteBinding
+                .inflate(LayoutInflater.from(this));
+
+        deleteBinding.btnFechar.setOnClickListener(v -> {
+            dialog.dismiss();
+            enderecoAdapter.notifyDataSetChanged();
+        });
+
+        deleteBinding.textTitulo.setText("Deseja remover este endereço ?");
+
+        deleteBinding.btnSim.setOnClickListener(v -> {
+            enderecoList.remove(endereco);
+
+            if (enderecoList.isEmpty()){
+                binding.textInfo.setText("Nenhuma endereço cadastrado.");
+
+            }else {
+                binding.textInfo.setText("");
+            }
+
+            endereco.delete();
+
+            enderecoAdapter.notifyDataSetChanged();
+
+            dialog.dismiss();
+        });
+
+        builder.setView(deleteBinding.getRoot());
+
+        dialog = builder.create();
+        dialog.show();
+
+
     }
 
     private void recuperaEndereco(){

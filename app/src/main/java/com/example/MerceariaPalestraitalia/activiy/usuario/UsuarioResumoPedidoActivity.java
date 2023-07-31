@@ -1,12 +1,12 @@
 package com.example.MerceariaPalestraitalia.activiy.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.MerceariaPalestraitalia.DAO.ItemDAO;
 import com.example.MerceariaPalestraitalia.DAO.ItemPedidoDAO;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.databinding.ActivityUsuarioResumoPedidoBinding;
@@ -26,10 +26,7 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
     private ActivityUsuarioResumoPedidoBinding binding;
 
-    private List<Endereco>enderecoList = new ArrayList<>();
-
-    private ItemDAO itemDAO;
-    private ItemPedidoDAO itemPedidoDAO;
+    private final List<Endereco>enderecoList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +36,18 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
         recuperaEndereco();
 
+        configClicks();
+
+    }
+
+    private void configClicks(){
+        binding.btnAlterarEndereco.setOnClickListener(view -> {
+            startActivity(new Intent(this, UsuarioSelecionaEnderecoActivity.class));
+        });
     }
 
     private void configDados(){
-        itemDAO = new ItemDAO(this);
-        itemPedidoDAO = new ItemPedidoDAO(this);
+        ItemPedidoDAO itemPedidoDAO = new ItemPedidoDAO(this);
 
         binding.include.textTitulo.setText("Resumo pedido");
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());

@@ -1,6 +1,7 @@
 package com.example.MerceariaPalestraitalia.activiy.app;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -23,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        
+
+        getWindow().setStatusBarColor(Color.parseColor("#03A9F4"));
 
         new Handler(getMainLooper()).postDelayed(this::verificaAcesso,1000);
 

@@ -1,6 +1,7 @@
 package com.example.MerceariaPalestraitalia.activiy.loja;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class LojaRecebimentosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLojaRecebimentosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         configClicks();
         recuperaLoja();

@@ -1,5 +1,6 @@
 package com.example.MerceariaPalestraitalia.activiy.loja;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class MainActivityEmpresa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainEmpresaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);

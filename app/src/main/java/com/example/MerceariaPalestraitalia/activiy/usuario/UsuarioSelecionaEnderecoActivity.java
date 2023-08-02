@@ -3,7 +3,6 @@ package com.example.MerceariaPalestraitalia.activiy.usuario;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -112,6 +111,9 @@ public class UsuarioSelecionaEnderecoActivity extends AppCompatActivity implemen
 
     @Override
     public void onClick(Endereco endereco) {
-        Toast.makeText(this, endereco.getNomeEndereco(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.putExtra("enderecoSelecionado", endereco);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

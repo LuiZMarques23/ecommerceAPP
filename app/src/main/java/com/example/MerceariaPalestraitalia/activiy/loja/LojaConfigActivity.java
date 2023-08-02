@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
@@ -45,6 +46,7 @@ public class LojaConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLojaConfigBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         recuperaLoja();
         iniciaComponentes();

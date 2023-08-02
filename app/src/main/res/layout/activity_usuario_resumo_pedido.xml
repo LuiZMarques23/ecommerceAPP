@@ -42,7 +42,6 @@
         android:layout_marginTop="8dp"
         android:text="Avenida paulista, 800 \nCentro, Minas gerais/MG \nCEP: 35480000, \nPonto de Referência"
         android:textColor="@color/black"
-        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -108,8 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Produto"
-                android:textSize="12sp" />
+                android:text="Produto"/>
 
             <TextView
                 android:id="@+id/textValorProdutos"
@@ -117,8 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="R$ 0,00"
-                android:textAlignment="textEnd"
-                android:textSize="12sp" />
+                android:textAlignment="textEnd"/>
 
         </LinearLayout>
 
@@ -132,8 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Frete"
-                android:textSize="12sp" />
+                android:text="Frete"/>
 
             <TextView
                 android:id="@+id/textValorFrete"
@@ -141,8 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="R$ 0,00"
-                android:textAlignment="textEnd"
-                android:textSize="12sp" />
+                android:textAlignment="textEnd"/>
 
         </LinearLayout>
 
@@ -157,8 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Total á vista"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/textValorTotal"
@@ -167,8 +161,7 @@
                 android:layout_weight="1"
                 android:text="R$ 0,00"
                 android:textAlignment="textEnd"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textColor="@color/black"/>
 
         </LinearLayout>
 

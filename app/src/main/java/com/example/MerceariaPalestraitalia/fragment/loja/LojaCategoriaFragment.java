@@ -68,6 +68,7 @@ public class LojaCategoriaFragment extends Fragment implements CategoriaAdapter.
         // Inflate the layout for this fragment
         binding = FragmentLojaCategoriaBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
     }
 
     @Override

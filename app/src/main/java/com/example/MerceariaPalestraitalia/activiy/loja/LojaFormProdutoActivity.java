@@ -1,5 +1,21 @@
 package com.example.MerceariaPalestraitalia.activiy.loja;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -7,24 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-
-
-import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-
-import android.provider.MediaStore;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.adapter.CategoriaDialogAdapter;
@@ -57,10 +55,10 @@ import java.util.Locale;
 
 public class LojaFormProdutoActivity extends AppCompatActivity implements CategoriaDialogAdapter.onClick {
     private  DialogFormProdutoCategoriaBinding categoriaBinding;
-    private List<String> idsCategoriasSelecionadas = new ArrayList<>();
-    private List<String> categoriaSelecionadaList = new ArrayList<>();
-    private List<Categoria> categoriaList = new ArrayList<>();
-    private List<ImagemUpload> imagemUploadList = new ArrayList<>();
+    private final List<String> idsCategoriasSelecionadas = new ArrayList<>();
+    private final List<String> categoriaSelecionadaList = new ArrayList<>();
+    private final List<Categoria> categoriaList = new ArrayList<>();
+    private final List<ImagemUpload> imagemUploadList = new ArrayList<>();
     private Produto produto;
     private boolean novoProduto = true;
     private ActivityLojaFormProdutoBinding binding;
@@ -73,6 +71,7 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         super.onCreate(savedInstanceState);
         binding = ActivityLojaFormProdutoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         getExtra();
         configClcks();

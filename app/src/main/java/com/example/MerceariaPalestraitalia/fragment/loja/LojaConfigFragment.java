@@ -2,17 +2,16 @@ package com.example.MerceariaPalestraitalia.fragment.loja;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.MerceariaPalestraitalia.activiy.loja.LojaConfigActivity;
-import com.example.MerceariaPalestraitalia.activiy.loja.LojaRecebimentosActivity;
+import com.example.MerceariaPalestraitalia.activiy.loja.LojaPagamentosActivity;
 import com.example.MerceariaPalestraitalia.activiy.usuario.MainActivityUsuario;
 import com.example.MerceariaPalestraitalia.databinding.FragmentLojaConfigBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
@@ -42,7 +41,7 @@ public class LojaConfigFragment extends Fragment {
         });
 
         binding.btnPagamentos.setOnClickListener(v -> {
-            startActivity(LojaRecebimentosActivity.class);
+            startActivity(LojaPagamentosActivity.class);
         });
 
         binding.btnDeslogar.setOnClickListener(v -> {

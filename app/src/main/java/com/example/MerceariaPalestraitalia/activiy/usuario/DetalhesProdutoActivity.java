@@ -1,6 +1,7 @@
 package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.Toast;
@@ -55,6 +56,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         super.onCreate(savedInstanceState);
         binding = ActivityDetalhesProdutoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         itemDAO = new ItemDAO(this);
         itemPedidoDAO = new ItemPedidoDAO(this);

@@ -1,6 +1,7 @@
 package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,8 @@ public class UsuarioEnderecoActivity extends AppCompatActivity implements Endere
         super.onCreate(savedInstanceState);
         binding = ActivityUsuarioEnderecoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
 
         iniciaComponentes();

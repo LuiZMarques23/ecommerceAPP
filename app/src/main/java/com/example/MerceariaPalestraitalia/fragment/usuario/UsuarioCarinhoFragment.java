@@ -1,5 +1,7 @@
 package com.example.MerceariaPalestraitalia.fragment.usuario;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -16,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.MerceariaPalestraitalia.DAO.ItemDAO;
 import com.example.MerceariaPalestraitalia.DAO.ItemPedidoDAO;
 import com.example.MerceariaPalestraitalia.R;
-import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioResumoPedidoActivity;
+import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioSelecionaPagamentoActivity;
 import com.example.MerceariaPalestraitalia.adapter.CarrinhoAdapter;
 import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
 import com.example.MerceariaPalestraitalia.databinding.DialogRemoverCarrinhoBinding;
@@ -78,15 +82,12 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
 
     private void configCliks(){
         binding.btnContinuar.setOnClickListener(view -> {
-            Intent intent;
             if (FirebaseHelper.getAutenticado()){
-                intent =  new Intent(requireContext(), UsuarioResumoPedidoActivity.class);
+                startActivity(new Intent(requireContext(), UsuarioSelecionaPagamentoActivity.class));
 
             }else {
-                intent = new Intent(requireContext(), LoginActivity.class);
-
+                resultLauncher.launch(new Intent(requireContext(), LoginActivity.class));
             }
-            startActivity(intent);
         });
     }
 
@@ -247,6 +248,16 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
             binding.textInfo.setVisibility(View.GONE);
         }
     }
+
+    private final ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    startActivity(new Intent(requireContext(), UsuarioSelecionaPagamentoActivity.class));
+                }
+
+            }
+    );
 
     @Override
     public void onDestroyView() {

@@ -2,6 +2,7 @@ package com.example.MerceariaPalestraitalia.model;
 
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ServerValue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,17 +11,46 @@ import java.util.List;
 public class Pedido implements Serializable {
 
     private String id;
-    private int Status; // 1-> Pendente, 2-> Aprovado, 3-> Em preparação, 4-> A Caminho, 5-> Entregue
+    private StatusPedido statusPedido;
     private String idCliente;
     private Endereco endereco;
     private List<ItemPedido> itemPedidos = new ArrayList<>();
-    private long data;
+    private long dataPedido;
+    private long dataStadusPedido;
     private double total;
     private String pagamento;
+    private double desconto;
+    private double acrescimo;
 
     public Pedido() {
         DatabaseReference pedidoRef = FirebaseHelper.getDatabaseReference();
         this.setId(pedidoRef.push().getKey());
+    }
+
+    public void salvar(boolean novoPedido){
+        DatabaseReference usuariopedidoRef = FirebaseHelper.getDatabaseReference()
+                .child("usuarioPedidos")
+                .child(FirebaseHelper.getIdFirebase())
+                .child(this.getId());
+        usuariopedidoRef.setValue(this);
+
+        DatabaseReference lojapedidoRef = FirebaseHelper.getDatabaseReference()
+                .child("lojaPedidos")
+                .child(this.getId());
+        lojapedidoRef.setValue(this);
+
+        if (novoPedido){
+            DatabaseReference dataPedidoUsuarioRef = usuariopedidoRef
+                    .child("dataPedido");
+            dataPedidoUsuarioRef.setValue(ServerValue.TIMESTAMP);
+
+            DatabaseReference dataPedidoLojaRef = lojapedidoRef
+                    .child("dataPedido");
+            dataPedidoLojaRef.setValue(ServerValue.TIMESTAMP);
+        }else {
+
+        }
+
     }
 
     public String getId() {
@@ -31,12 +61,12 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public int getStatus() {
-        return Status;
+    public StatusPedido getStatusPedido() {
+        return statusPedido;
     }
 
-    public void setStatus(int status) {
-        Status = status;
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
     }
 
     public String getIdCliente() {
@@ -63,12 +93,20 @@ public class Pedido implements Serializable {
         this.itemPedidos = itemPedidos;
     }
 
-    public long getData() {
-        return data;
+    public long getDataPedido() {
+        return dataPedido;
     }
 
-    public void setData(long data) {
-        this.data = data;
+    public void setDataPedido(long dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public long getDataStadusPedido() {
+        return dataStadusPedido;
+    }
+
+    public void setDataStadusPedido(long dataStadusPedido) {
+        this.dataStadusPedido = dataStadusPedido;
     }
 
     public double getTotal() {
@@ -85,5 +123,21 @@ public class Pedido implements Serializable {
 
     public void setPagamento(String pagamento) {
         this.pagamento = pagamento;
+    }
+
+    public double getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(double desconto) {
+        this.desconto = desconto;
+    }
+
+    public double getAcrescimo() {
+        return acrescimo;
+    }
+
+    public void setAcrescimo(double acrescimo) {
+        this.acrescimo = acrescimo;
     }
 }

@@ -8,6 +8,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.MerceariaPalestraitalia.DAO.ItemPedidoDAO;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.activiy.loja.MainActivityEmpresa;
 import com.example.MerceariaPalestraitalia.activiy.usuario.MainActivityUsuario;
@@ -23,12 +24,20 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-
-        getWindow().setStatusBarColor(Color.parseColor("#03A9F4"));
-
         new Handler(getMainLooper()).postDelayed(this::verificaAcesso,1000);
 
+        limparCarrinho();
+        corStatusBar();
+
+    }
+
+    private void limparCarrinho(){
+        ItemPedidoDAO itemPedidoDAO = new ItemPedidoDAO(this);
+        itemPedidoDAO.limparCarrinho();
+    }
+
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#03A9F4"));
     }
 
     private void verificaAcesso(){

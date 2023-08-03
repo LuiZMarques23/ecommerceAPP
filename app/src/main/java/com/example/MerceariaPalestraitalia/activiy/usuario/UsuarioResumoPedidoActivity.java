@@ -1,7 +1,6 @@
 package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,11 +9,15 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.MerceariaPalestraitalia.DAO.ItemDAO;
 import com.example.MerceariaPalestraitalia.DAO.ItemPedidoDAO;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.databinding.ActivityUsuarioResumoPedidoBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Endereco;
+import com.example.MerceariaPalestraitalia.model.FormaPagamento;
+import com.example.MerceariaPalestraitalia.model.Pedido;
+import com.example.MerceariaPalestraitalia.model.StatusPedido;
 import com.example.MerceariaPalestraitalia.util.GetMask;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,24 +33,69 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
     private ActivityUsuarioResumoPedidoBinding binding;
 
     private final List<Endereco>enderecoList = new ArrayList<>();
+    private FormaPagamento formaPagamento;
+    private ItemPedidoDAO itemPedidoDAO;
+    private ItemDAO itemDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityUsuarioResumoPedidoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
+
+        itemPedidoDAO = new ItemPedidoDAO(this);
+        itemDAO = new ItemDAO(this);
 
         recuperaEndereco();
 
         configClicks();
 
+        getExtra();
+
+    }
+
+    private void getExtra(){
+        formaPagamento = (FormaPagamento) getIntent().getExtras().getSerializable("pagamentoSelecionado");
+        configDados();
     }
 
     private void configClicks(){
         binding.btnAlterarEndereco.setOnClickListener(view -> {
             resultLauncher.launch(new Intent(this, UsuarioSelecionaEnderecoActivity.class));
         });
+
+        binding.btnAlterarPagamento.setOnClickListener(view -> finish());
+
+        binding.btnFinalizar.setOnClickListener(view -> finalizarPedido());
+
+
+    }
+
+    private void finalizarPedido(){
+        Pedido pedido = new Pedido();
+        pedido.setIdCliente(FirebaseHelper.getIdFirebase());
+        pedido.setEndereco(enderecoList.get(0));
+        pedido.setTotal(itemPedidoDAO.getTotalPedido());
+        pedido.setPagamento(formaPagamento.getNome());
+        pedido.setStatusPedido(StatusPedido.PENDENTE);
+
+        if (formaPagamento.getTipoValor().equals("DESC")){
+            pedido.setDesconto(formaPagamento.getValor());
+        }else {
+            pedido.setAcrescimo(formaPagamento.getValor());
+        }
+
+        pedido.setItemPedidos(itemPedidoDAO.getList());
+
+        pedido.salvar(true);
+
+        itemPedidoDAO.limparCarrinho();
+
+        Intent intent = new Intent(this, MainActivityUsuario.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("id", 1);
+        startActivity(intent);
+
     }
 
     private void configDados(){

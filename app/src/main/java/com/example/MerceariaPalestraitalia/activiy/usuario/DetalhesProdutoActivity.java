@@ -56,7 +56,6 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         super.onCreate(savedInstanceState);
         binding = ActivityDetalhesProdutoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         itemDAO = new ItemDAO(this);
         itemPedidoDAO = new ItemPedidoDAO(this);
@@ -66,6 +65,8 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         getExtra();
 
         recuperaFavoritos();
+
+        corStatusBar();
     }
 
     private void configClicks(){
@@ -107,11 +108,10 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         itemPedidoDAO.salvar(itemPedido);
 
         itemDAO.salvar(produtoSelecionado);
+    }
 
-        Intent intent = new Intent(this, MainActivityUsuario.class);
-        intent.putExtra("id", 2);
-        startActivity(intent);
-        finish();
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 
     private void configRvProdtudos(List<Produto> produtoList){
@@ -209,10 +209,16 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         DialogAddItemCarrinhoBinding dialogBinding = DialogAddItemCarrinhoBinding
                 .inflate(LayoutInflater.from(this));
 
+        addCarrinho();
+
         dialogBinding.btnFechar.setOnClickListener(view -> dialog.dismiss());
 
         dialogBinding.btnIrcarrinho.setOnClickListener(v -> {
-            addCarrinho();
+            Intent intent = new Intent(this, MainActivityUsuario.class);
+            intent.putExtra("id", 2);
+            startActivity(intent);
+            finish();
+
             dialog.dismiss();
         });
 

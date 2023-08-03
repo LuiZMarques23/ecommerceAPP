@@ -21,37 +21,46 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/llLogado"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="16dp">
+           <LinearLayout
+               android:id="@+id/llLogado"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
 
-                <android.widget.Button
-                    android:id="@+id/btnEntrar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Entrar"
-                    android:layout_marginEnd="8dp"
-                    android:textColor="@color/color_azul"
-                    android:background="@drawable/bg_borda_azul"/>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:paddingHorizontal="24dp"
+                   android:paddingVertical="16dp">
 
-                <android.widget.Button
-                    android:id="@+id/btnCadastrar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
-                    android:text="Cadastrar"
-                    android:textColor="@color/color_azul"
-                    android:background="@drawable/bg_borda_azul"/>
+                   <android.widget.Button
+                       android:id="@+id/btnEntrar"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:text="Entrar"
+                       android:layout_marginEnd="8dp"
+                       android:textColor="@color/color_azul"
+                       android:background="@drawable/bg_borda_azul"/>
 
-            </LinearLayout>
+                   <android.widget.Button
+                       android:id="@+id/btnCadastrar"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:layout_marginStart="8dp"
+                       android:text="Cadastrar"
+                       android:textColor="@color/color_azul"
+                       android:background="@drawable/bg_borda_azul"/>
 
-            <include layout="@layout/divisor"/>
+               </LinearLayout>
+
+               <include layout="@layout/divisor"/>
+
+           </LinearLayout>
+
+
 
             <LinearLayout
                 android:id="@+id/btnMeusDados"
@@ -148,6 +157,7 @@
             <include layout="@layout/divisor"/>
 
             <LinearLayout
+                android:id="@+id/btnPolitica"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
@@ -195,6 +205,7 @@
             <include layout="@layout/divisor"/>
 
             <LinearLayout
+                android:id="@+id/btnAjuda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
@@ -240,52 +251,59 @@
 
             <include layout="@layout/divisor"/>
 
-            <LinearLayout
-                android:id="@+id/btnDeslogar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:orientation="horizontal">
+           <LinearLayout
+               android:id="@+id/btnDeslogar"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_sair"/>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="16dp"
+                   android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="32dp"
-                    android:orientation="vertical">
+                   <ImageView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="24dp"
+                       android:layout_gravity="center_vertical"
+                       android:src="@drawable/ic_sair"/>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Sair"
-                        android:textSize="16dp"
-                        android:textColor="@color/color_delete"/>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:layout_marginStart="24dp"
+                       android:layout_marginEnd="32dp"
+                       android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Deslogar da minha conta"/>
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Sair"
+                           android:textSize="16dp"
+                           android:textColor="@color/color_delete"/>
 
-                </LinearLayout>
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Deslogar da minha conta"/>
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginEnd="24dp"
-                    android:src="@drawable/ic_seta_deleta"/>
+                   </LinearLayout>
 
-            </LinearLayout>
+                   <ImageView
+                       android:layout_width="15dp"
+                       android:layout_height="15dp"
+                       android:layout_gravity="center_vertical"
+                       android:layout_marginEnd="24dp"
+                       android:src="@drawable/ic_seta_deleta"/>
 
-            <include layout="@layout/divisor"/>
+               </LinearLayout>
+
+               <include layout="@layout/divisor"/>
+
+           </LinearLayout>
 
         </LinearLayout>
 

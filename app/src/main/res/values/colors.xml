@@ -8,6 +8,7 @@
     <color name="colorIconeOffBnv">#A59D98</color>
     <color name="color_delete">#F40909</color>
     <color name="color_Vermelho">#F40909</color>
-    <color name="color_Voltar">#FFFB4141</color>
+    <color name="color_Voltar">#F44336</color>
+    <color name="color_status_pedido_aprovado">#34A853</color>
 
 </resources>

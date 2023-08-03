@@ -1,9 +1,11 @@
 package com.example.MerceariaPalestraitalia.autenticacao;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.MerceariaPalestraitalia.activiy.loja.MainActivityEmpresa;
-import com.example.MerceariaPalestraitalia.activiy.usuario.MainActivityUsuario;
 import com.example.MerceariaPalestraitalia.databinding.ActivityLoginBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.google.firebase.database.DataSnapshot;
@@ -55,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         if (!email.isEmpty()){
             if (!senha.isEmpty()){
 
+                ocultaTeclado();
+
                 binding.progressBar.setVisibility(View.VISIBLE);
 
                 Login(email, senha);
@@ -78,7 +81,6 @@ public class LoginActivity extends AppCompatActivity {
            if (task.isSuccessful()){
                recuperaUsuario(task.getResult().getUser().getUid());
 
-               finish();
            }else {
                binding.progressBar.setVisibility(View.GONE);
                Toast.makeText(this, FirebaseHelper.validaErro(task.getException().getMessage()), Toast.LENGTH_SHORT).show();
@@ -97,8 +99,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){ // Usuário
-                    startActivity(new Intent(getBaseContext(), MainActivityUsuario.class));
-                }else { // Loja
+                    setResult(RESULT_OK);
+                }else {// Empresa
                     startActivity(new Intent(getBaseContext(), MainActivityEmpresa.class));
                 }
                 finish();
@@ -123,6 +125,13 @@ public class LoginActivity extends AppCompatActivity {
             resultLauncher.launch(intent);
         });
 
+    }
+
+    // Ocultar teclado do dispositivo
+    private void ocultaTeclado(){
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(binding.edtEmail.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
 

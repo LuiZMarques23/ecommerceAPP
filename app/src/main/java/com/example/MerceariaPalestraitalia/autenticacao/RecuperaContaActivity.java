@@ -1,12 +1,12 @@
 package com.example.MerceariaPalestraitalia.autenticacao;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.MerceariaPalestraitalia.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.MerceariaPalestraitalia.databinding.ActivityRecuperaContaBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 
@@ -20,6 +20,7 @@ public class RecuperaContaActivity extends AppCompatActivity {
         binding = ActivityRecuperaContaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         configCliques();
+        corStatusBar();
     }
 
     public void validaDados(View view){
@@ -34,6 +35,10 @@ public class RecuperaContaActivity extends AppCompatActivity {
             binding.edtEmail.requestFocus();
             binding.edtEmail.setError("Informe seu email.");
         }
+    }
+
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 
     private void recuperaConta(String email){

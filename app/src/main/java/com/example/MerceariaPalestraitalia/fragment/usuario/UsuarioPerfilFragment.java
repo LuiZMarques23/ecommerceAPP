@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.MerceariaPalestraitalia.activiy.usuario.AjudaActivity;
+import com.example.MerceariaPalestraitalia.activiy.usuario.MainActivityUsuario;
+import com.example.MerceariaPalestraitalia.activiy.usuario.PoliticaActivity;
 import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioEnderecoActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.CadastroActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
@@ -32,8 +35,14 @@ public class UsuarioPerfilFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         configClicks();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        configMenu();
     }
 
     private void configClicks(){
@@ -42,9 +51,19 @@ public class UsuarioPerfilFragment extends Fragment {
         binding.btnCadastrar.setOnClickListener(view ->  {
             startActivity(new Intent(requireContext(), CadastroActivity.class));
         });
+        binding.btnDeslogar.setOnClickListener(view -> {
+            FirebaseHelper.getAuth().signOut();
+            requireActivity().finish();
+
+            startActivity(new Intent(requireContext(), MainActivityUsuario.class));
+        });
         binding.btnEnderecos.setOnClickListener(view -> {
             startActivity(new Intent(requireContext(), UsuarioEnderecoActivity.class));
+
+
         });
+        binding.btnPolitica.setOnClickListener(view -> startActivity(PoliticaActivity.class));
+        binding.btnAjuda.setOnClickListener(view -> startActivity(AjudaActivity.class));
     }
 
     private void startActivity(Class<?> clazz){
@@ -52,6 +71,18 @@ public class UsuarioPerfilFragment extends Fragment {
             startActivity(new Intent(requireContext(),clazz));
         }else {
             startActivity(new Intent(requireContext(),LoginActivity.class));
+        }
+    }
+
+    private void configMenu(){
+        if (FirebaseHelper.getAutenticado()){
+            binding.llLogado.setVisibility(View.GONE);
+            binding.btnDeslogar.setVisibility(View.VISIBLE);
+        }else {
+            binding.llLogado.setVisibility(View.VISIBLE);
+            binding.btnDeslogar.setVisibility(View.GONE);
+
+
         }
     }
 }

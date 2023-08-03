@@ -59,7 +59,6 @@ public class ItemPedidoDAO {
         return true;
 
     }
-
     public boolean remover(ItemPedido itemPedido){
         String where = "id=?";
         String[] args = {String.valueOf(itemPedido.getId())};
@@ -101,7 +100,6 @@ public class ItemPedidoDAO {
         cursor.close();
         return produto;
     }
-
     public List<ItemPedido> getList(){
         List<ItemPedido> itemPedidoList = new ArrayList<>();
 
@@ -119,18 +117,30 @@ public class ItemPedidoDAO {
             itemPedido.setIdProduto(id_produto);
             itemPedido.setValor(valor);
             itemPedido.setQuantidade(quantidade);
+            itemPedido.setNomeProduto(getProduto(id).getTitulo());
 
             itemPedidoList.add(itemPedido);
         }
         cursor.close();
         return itemPedidoList;
     }
-
     public Double getTotalPedido(){
         double total = 0;
         for (ItemPedido itemPedido : getList()){
             total += (itemPedido.getValor() * itemPedido.getQuantidade());
         }
         return total;
+    }
+
+    public void limparCarrinho(){
+        try {
+            write.delete(DBHelper.TB_ITEM_PEDIDO, null, null);
+            write.delete(DBHelper.TB_ITEM,null, null);
+            Log.i("INFODB:", "Sucesso ao limpar o carrinho.");
+        }catch (Exception e){
+            Log.i("INFODB:", "Erro ao limpar o carrinho." + e.getMessage());
+
+        }
+
     }
 }

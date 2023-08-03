@@ -2,6 +2,7 @@ package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -20,7 +21,6 @@ public class MainActivityUsuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainUsuarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
@@ -28,11 +28,27 @@ public class MainActivityUsuario extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.bottomNavigationView,navController);
 
         int id = getIntent().getIntExtra("id", 0);
+        if (id != 0) direcionaAcesso(id);
 
-        if (id == 2){
-            binding.bottomNavigationView.setSelectedItemId(R.id.menu_carrinho);
+        corStatusBar();
+
+    }
+
+    private void direcionaAcesso(int id){
+        switch (id){
+            case 1:
+                binding.bottomNavigationView.setSelectedItemId(R.id.menu_pedido);
+                break;
+            case 2:
+                binding.bottomNavigationView.setSelectedItemId(R.id.menu_carrinho);
+                break;
+            default:
+                Toast.makeText(this, "Acesso inválido, verifique por favor", Toast.LENGTH_SHORT).show();
+                break;
         }
+    }
 
-
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 }

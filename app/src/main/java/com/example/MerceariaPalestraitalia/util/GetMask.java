@@ -1,5 +1,7 @@
 package com.example.MerceariaPalestraitalia.util;
 
+import static java.text.DateFormat.getDateTimeInstance;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -8,8 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import static java.text.DateFormat.getDateTimeInstance;
 
 public class GetMask {
 
@@ -44,10 +44,10 @@ public class GetMask {
         String hora = horaSdf.format(netDate);
         String minuto = minutoSdf.format(netDate);
 
-        String time;
+        String time = "";
         if(tipo == 1){
             time = dia + "/" + mes + "/" + ano;
-        }else {
+        }else if (tipo == 2){
             time = dia + "/" + mes + "/" + ano + " " + hora + ":" + minuto;
         }
         return time;

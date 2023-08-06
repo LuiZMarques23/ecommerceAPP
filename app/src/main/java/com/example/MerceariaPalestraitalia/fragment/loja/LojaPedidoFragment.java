@@ -92,9 +92,9 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
     @Override
     public void onClick(Pedido pedido, String operacao) {
         switch (operacao){
-            case "detalhe":
+            case "detalhes":
                 Intent intent = new Intent(requireContext(), DetalhePedidoActivity.class);
-                intent.putExtra("pedidoSelecionad", pedido);
+                intent.putExtra("pedidoSelecionado", pedido);
                 startActivity(intent);
                 break;
             case "status":

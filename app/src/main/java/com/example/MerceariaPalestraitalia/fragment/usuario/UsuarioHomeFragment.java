@@ -1,14 +1,16 @@
 package com.example.MerceariaPalestraitalia.fragment.usuario;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,15 +32,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.onClick, LojaProdutoAdapter.OnClickLister, LojaProdutoAdapter.OnClickFavorito {
 
     private FragmentUsuarioHomeBinding binding;
     private final List<Categoria> categoriaList = new ArrayList<>();
     private final List<Produto> produtoList = new ArrayList<>();
+    private final List<Produto> filtroProdutoCategoriaList = new ArrayList<>();
     private final List<String> idsFavoritos = new ArrayList<>();
     private CategoriaAdapter categoriaAdapter;
     private LojaProdutoAdapter lojaProdutoAdapter;
+    private Categoria categoriaSelecionada;
 
 
     @Override
@@ -56,17 +61,36 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         super.onViewCreated(view, savedInstanceState);
 
         configRvCategorias();
-
-
-
+        configSearchView();
+        recuperaDados();
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        recuperaDados();
+    private void configSearchView(){
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String pesquisa) {
+                ocultaTeclado();
+                filtraProdutoNome(pesquisa);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        binding.searchView.setOnCloseListener(() -> {
+            ocultaTeclado();
+            filtraProdutoCategoria();
+
+            return true;
+        });
+
+
+
     }
 
     private void recuperaDados(){
@@ -99,6 +123,47 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
 
            });
        }
+    }
+
+    private void filtraProdutoCategoria(){
+
+       if (!categoriaSelecionada.isTodas()){
+
+           for (Produto produto : produtoList){
+               if (produto.getIdsCategorias().contains(categoriaSelecionada.getId())){
+                   if (!filtroProdutoCategoriaList.contains(produto)){
+                       filtroProdutoCategoriaList.add(produto);
+                   }
+               }
+           }
+           configRvProdtudos(filtroProdutoCategoriaList);
+       }else {
+           filtroProdutoCategoriaList.clear();
+           configRvProdtudos(produtoList);
+       }
+
+    }
+
+    private void filtraProdutoNome(String pesquisa){
+        List<Produto> filtroProdutoNomeList = new ArrayList<>();
+
+        if (!filtroProdutoCategoriaList.isEmpty()){
+
+            for (Produto produto : filtroProdutoCategoriaList){
+                if (produto.getTitulo().toUpperCase(Locale.ROOT).contains(pesquisa.toUpperCase(Locale.ROOT))){
+                    filtroProdutoNomeList.add(produto);
+                }
+            }
+        }else {
+
+            for (Produto produto : produtoList){
+                if (produto.getTitulo().toUpperCase(Locale.ROOT).contains(pesquisa.toUpperCase(Locale.ROOT))){
+                    filtroProdutoNomeList.add(produto);
+                }
+            }
+
+        }
+        configRvProdtudos(filtroProdutoNomeList);
     }
 
     private void configRvCategorias(){
@@ -144,6 +209,7 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         produtoRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 produtoList.clear();
                 for (DataSnapshot ds : snapshot.getChildren()){
                     Produto produto = ds.getValue(Produto.class);
@@ -152,10 +218,11 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
                 listEmpty(produtoList);
 
                 binding.progressBar.setVisibility(View.GONE);
-                Collections.reverse(produtoList);
-
 
                 configRvProdtudos(produtoList);
+
+                Collections.reverse(produtoList);
+
 
             }
 
@@ -174,10 +241,18 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
         }
     }
 
+    // Ocultar teclado do dispositivo
+    private void ocultaTeclado(){
+        InputMethodManager inputMethodManager = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(binding.searchView.getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 
     @Override
     public void onClickListener(Categoria categoria) {
-        Toast.makeText(requireContext(), categoria.getNome(), Toast.LENGTH_SHORT).show();
+        this.categoriaSelecionada = categoria;
+        filtraProdutoCategoria();
+
     }
 
     @Override

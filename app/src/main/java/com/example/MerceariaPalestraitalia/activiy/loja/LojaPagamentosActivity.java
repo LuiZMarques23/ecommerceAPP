@@ -42,8 +42,7 @@ public class LojaPagamentosActivity extends AppCompatActivity implements LojaPag
         binding = ActivityLojaPagamentosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
-
+        corStausBar();
 
         iniciaComponentes();
 
@@ -179,5 +178,9 @@ public class LojaPagamentosActivity extends AppCompatActivity implements LojaPag
 
 
 
+    }
+
+    private void corStausBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 }

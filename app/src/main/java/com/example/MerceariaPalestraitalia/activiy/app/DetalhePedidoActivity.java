@@ -1,5 +1,6 @@
 package com.example.MerceariaPalestraitalia.activiy.app;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,8 @@ public class DetalhePedidoActivity extends AppCompatActivity {
         binding = ActivityDetalhePedidoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        corStatusBar();
+
         iniciaComponetes();
 
         getExtra();
@@ -45,7 +48,7 @@ public class DetalhePedidoActivity extends AppCompatActivity {
     private void getExtra(){
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            pedido = (Pedido) bundle.getSerializable("pedidoSelecionad");
+            pedido = (Pedido) bundle.getSerializable("pedidoSelecionado");
 
             configRv();
 
@@ -101,6 +104,11 @@ public class DetalhePedidoActivity extends AppCompatActivity {
                 getString(R.string.valor, GetMask.getValor(totalPedido))
         );
 
+
+    }
+
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
     }
 

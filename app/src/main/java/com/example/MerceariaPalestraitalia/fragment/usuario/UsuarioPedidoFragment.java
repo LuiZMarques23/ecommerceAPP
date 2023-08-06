@@ -116,7 +116,7 @@ public class UsuarioPedidoFragment extends Fragment implements UsuarioPedidoAdap
     @Override
     public void onClick(Pedido pedido) {
         Intent intent = new Intent(requireContext(), DetalhePedidoActivity.class);
-        intent.putExtra("pedidoSelecionad", pedido);
+        intent.putExtra("pedidoSelecionado", pedido);
         startActivity(intent);
     }
 }

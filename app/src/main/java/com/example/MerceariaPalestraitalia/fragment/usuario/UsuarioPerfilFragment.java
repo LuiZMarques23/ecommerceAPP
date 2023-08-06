@@ -14,6 +14,7 @@ import com.example.MerceariaPalestraitalia.activiy.usuario.AjudaActivity;
 import com.example.MerceariaPalestraitalia.activiy.usuario.MainActivityUsuario;
 import com.example.MerceariaPalestraitalia.activiy.usuario.PoliticaActivity;
 import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioEnderecoActivity;
+import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioPerfilActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.CadastroActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
 import com.example.MerceariaPalestraitalia.databinding.FragmentUsuarioPerfilBinding;
@@ -47,7 +48,7 @@ public class UsuarioPerfilFragment extends Fragment {
 
     private void configClicks(){
         binding.btnEntrar.setOnClickListener(view ->  startActivity(LoginActivity.class));
-        binding.btnMeusDados.setOnClickListener(view ->  startActivity(LoginActivity.class));
+        binding.btnMeusDados.setOnClickListener(view ->  startActivity(UsuarioPerfilActivity.class));
         binding.btnCadastrar.setOnClickListener(view ->  {
             startActivity(new Intent(requireContext(), CadastroActivity.class));
         });

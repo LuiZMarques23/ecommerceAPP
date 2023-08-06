@@ -21,9 +21,10 @@ public class CadastroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCadastroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
+
 
         confiCliques();
+        corStatusBar();
     }
 
     public void validaDados(View view){
@@ -104,6 +105,10 @@ public class CadastroActivity extends AppCompatActivity {
             binding.progressBar.setVisibility(View.GONE);
 
         });
+    }
+
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 
 

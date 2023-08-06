@@ -1,6 +1,7 @@
 package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -52,6 +53,8 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
         getExtra();
 
+        corStatusBar();
+
     }
 
     private void getExtra(){
@@ -69,6 +72,10 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
         binding.btnFinalizar.setOnClickListener(view -> finalizarPedido());
 
 
+    }
+
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 
     private void finalizarPedido(){
@@ -131,8 +138,33 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
             binding.btnAlterarEndereco.setText("Cadastra endereço.");
         }
 
-        binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
-        binding.textValor.setText(getString(R.string.valor_total_carrinho, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
+        binding.textNomePagamento.setText(formaPagamento.getNome());
+
+        if (formaPagamento.getTipoValor().equals("DESC")){
+            binding.textTipoPagamento.setText("Desconto");
+
+        }else {
+            binding.textTipoPagamento.setText("Acréscimo");
+
+        }
+
+        double valorExtra = formaPagamento.getValor();
+
+        binding.textValorTipoPagamento.setText(getString(R.string.valor, GetMask.getValor(valorExtra)));
+
+        if (itemPedidoDAO.getTotalPedido() >= valorExtra){
+
+            binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() - valorExtra)));
+            binding.textValor.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() - valorExtra)));
+
+        }else {
+            binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(0)));
+            binding.textValor.setText(getString(R.string.valor, GetMask.getValor(0)));
+
+        }
+
+//        binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
+//        binding.textValor.setText(getString(R.string.valor_total_carrinho, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
     }
 
     private void recuperaEndereco(){

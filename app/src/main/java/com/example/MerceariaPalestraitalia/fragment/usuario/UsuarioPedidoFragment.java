@@ -1,17 +1,19 @@
 package com.example.MerceariaPalestraitalia.fragment.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.MerceariaPalestraitalia.activiy.app.DetalhePedidoActivity;
 import com.example.MerceariaPalestraitalia.adapter.UsuarioPedidoAdapter;
+import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
 import com.example.MerceariaPalestraitalia.databinding.FragmentUsuarioPedidoBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Pedido;
@@ -29,21 +31,43 @@ public class UsuarioPedidoFragment extends Fragment implements UsuarioPedidoAdap
 
     private FragmentUsuarioPedidoBinding binding;
     private UsuarioPedidoAdapter usuarioPedidoAdapter;
-    private List<Pedido> pedidoList = new ArrayList<>();
+    private final List<Pedido> pedidoList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentUsuarioPedidoBinding.inflate(inflater, container, false);
         return binding.getRoot();
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        configRv();
-        recuperPedidos();
+        configClick();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (FirebaseHelper.getAutenticado()){
+            binding.btnLogin.setVisibility(View.GONE);
+            configRv();
+            recuperPedidos();
+        }else {
+            binding.btnLogin.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.GONE);
+            binding.textInfo.setText("Você não está autenticado no app clique em.");
+
+        }
+    }
+
+    private void configClick(){
+        binding.btnLogin.setOnClickListener(view -> {
+            startActivity(new Intent(requireContext(), LoginActivity.class));
+        });
     }
 
     private void configRv(){
@@ -91,6 +115,8 @@ public class UsuarioPedidoFragment extends Fragment implements UsuarioPedidoAdap
 
     @Override
     public void onClick(Pedido pedido) {
-        Toast.makeText(requireContext(), pedido.getPagamento(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(requireContext(), DetalhePedidoActivity.class);
+        intent.putExtra("pedidoSelecionad", pedido);
+        startActivity(intent);
     }
 }

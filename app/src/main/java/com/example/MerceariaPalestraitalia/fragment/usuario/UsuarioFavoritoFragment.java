@@ -1,7 +1,7 @@
 package com.example.MerceariaPalestraitalia.fragment.usuario;
 
 import android.content.Intent;
-import  android.os.Bundle;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.activiy.usuario.DetalhesProdutoActivity;
 import com.example.MerceariaPalestraitalia.adapter.LojaProdutoAdapter;
+import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
 import com.example.MerceariaPalestraitalia.databinding.FragmentUsuarioFavoritoBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Favorito;
@@ -28,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdapter.OnClickLister, LojaProdutoAdapter.OnClickFavorito {
+public class  UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdapter.OnClickLister, LojaProdutoAdapter.OnClickFavorito {
 
     private FragmentUsuarioFavoritoBinding binding;
 
@@ -51,11 +52,29 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        configRvProdtudos();
+        configClick();
+    }
 
-        recuperaFavoritos();
+    @Override
+    public void onStart() {
+        super.onStart();
 
-        recuperaProdutos();
+        if (FirebaseHelper.getAutenticado()){
+            binding.btnLogin.setVisibility(View.GONE);
+            configRvProdtudos();
+            recuperaFavoritos();
+        }else {
+            binding.btnLogin.setVisibility(View.VISIBLE);
+            binding.progressBar.setVisibility(View.GONE);
+            binding.textInfo.setText("Você não está autenticado no app clique em.");
+
+        }
+    }
+
+    private void configClick(){
+        binding.btnLogin.setOnClickListener(view -> {
+            startActivity(new Intent(requireContext(), LoginActivity.class));
+        });
     }
 
     private void configRvProdtudos(){
@@ -135,7 +154,7 @@ public class UsuarioFavoritoFragment extends Fragment implements LojaProdutoAdap
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (favoritoRef != null) favoritoRef.removeEventListener(eventListener);
+        if (eventListener != null) favoritoRef.removeEventListener(eventListener);
         binding = null;
     }
 

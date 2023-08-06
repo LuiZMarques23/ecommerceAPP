@@ -40,23 +40,20 @@ public class UsuarioEnderecoActivity extends AppCompatActivity implements Endere
         binding = ActivityUsuarioEnderecoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
-
-
         iniciaComponentes();
-
         confgCliks();
 
+        corStatusBar();
         configRv();
+        recuperaEndereco();
+
 
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        recuperaEndereco();
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 
     private void configRv(){

@@ -70,7 +70,7 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
             if (porcentagem >= 10){
                 holder.txtDescontoProduto.setText(context.getString(R.string.valor_off, porcentagem, "%"));
             }else {
-                String porcent = String.valueOf(porcentagem).replace("0", "");
+                String porcent = String.valueOf(porcentagem).replace("0", "0");
                 holder.txtDescontoProduto.setText(context.getString(R.string.valor_off, Integer.parseInt(porcent), "%"));
             }
 

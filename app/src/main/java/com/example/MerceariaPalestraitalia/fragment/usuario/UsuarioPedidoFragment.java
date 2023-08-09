@@ -106,12 +106,6 @@ public class UsuarioPedidoFragment extends Fragment implements UsuarioPedidoAdap
         });
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        binding = null;
-    }
 
     @Override
     public void onClick(Pedido pedido) {

@@ -30,7 +30,7 @@ public class Pedido implements Serializable {
     public void salvar(boolean novoPedido){
         DatabaseReference usuariopedidoRef = FirebaseHelper.getDatabaseReference()
                 .child("usuarioPedidos")
-                .child(FirebaseHelper.getIdFirebase())
+                .child(this.getIdCliente())
                 .child(this.getId());
         usuariopedidoRef.setValue(this);
 
@@ -47,7 +47,25 @@ public class Pedido implements Serializable {
             DatabaseReference dataPedidoLojaRef = lojapedidoRef
                     .child("dataPedido");
             dataPedidoLojaRef.setValue(ServerValue.TIMESTAMP);
+
+
+            DatabaseReference dataStatusPedidoUsuarioRef = usuariopedidoRef
+                    .child("dataStadusPedido");
+            dataStatusPedidoUsuarioRef.setValue(ServerValue.TIMESTAMP);
+
+            DatabaseReference dataStatusPedidoLojaRef = lojapedidoRef
+                    .child("dataStadusPedido");
+            dataStatusPedidoLojaRef.setValue(ServerValue.TIMESTAMP);
+
         }else {
+
+            DatabaseReference dataStatusPedidoUsuarioRef = usuariopedidoRef
+                    .child("dataStadusPedido");
+            dataStatusPedidoUsuarioRef.setValue(ServerValue.TIMESTAMP);
+
+            DatabaseReference dataStatusPedidoLojaRef = lojapedidoRef
+                    .child("dataStadusPedido");
+            dataStatusPedidoLojaRef.setValue(ServerValue.TIMESTAMP);
 
         }
 

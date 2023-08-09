@@ -69,6 +69,12 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         corStatusBar();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (dialog != null) dialog.dismiss();
+    }
+
     private void configClicks(){
         binding.include.textTitulo.setText("Detalhes do produto");
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());
@@ -219,7 +225,6 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
             startActivity(intent);
             finish();
 
-            dialog.dismiss();
         });
 
         builder.setView(dialogBinding.getRoot());

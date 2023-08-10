@@ -101,8 +101,21 @@ public class LojaConfigActivity extends AppCompatActivity {
         if (loja.getPedidoMinimo() != 0){
             binding.edtPedidoMinimo.setText(String.valueOf(loja.getPedidoMinimo() * 10));
         }
+
         if (loja.getFreteGratis() != 0){
             binding.edtFreteGratis.setText(String.valueOf(loja.getFreteGratis() * 10));
+        }
+
+        if (loja.getPublickey() != null){
+            binding.edtPublickey.setText(loja.getPublickey());
+        }
+
+        if (loja.getAccessToken() != null){
+            binding.edtAcessToken.setText(loja.getAccessToken());
+        }
+
+        if (loja.getParcelas() != 0){
+            binding.edtParcelas.setText(String.valueOf(loja.getParcelas()));
         }
     }
     private void validaDados(){
@@ -110,24 +123,57 @@ public class LojaConfigActivity extends AppCompatActivity {
         String CNPJ = binding.edtCNPJ.getText().toString().trim();
         double pedidoMinimo = (double) binding.edtPedidoMinimo.getRawValue() / 100;
         double frete = (double) binding.edtFreteGratis.getRawValue() / 100;
+        String publickey = binding.edtPublickey.getText().toString().trim();
+        String acessToken = binding.edtAcessToken.getText().toString().trim();
+
+
+        String parcelasStr = binding.edtParcelas.getText().toString().trim();
+        int parcelas = 0;
+        if (!parcelasStr.isEmpty()){
+            parcelas = Integer.parseInt(binding.edtParcelas.getText().toString().trim());
+        }
 
         if (!empresa.isEmpty()){
             if (!CNPJ.isEmpty()){
                 if (CNPJ.length() == 18){
+                    if (!publickey.isEmpty()){
+                        if (!acessToken.isEmpty()){
+                            if (parcelas > 0 && parcelas <= 12){
 
-                    loja.setNome(empresa);
-                    loja.setCNPJ(CNPJ);
-                    loja.setPedidoMinimo(pedidoMinimo);
-                    loja.setFreteGratis(frete);
+                                ocultaTeclado();
 
-                    if (caminhoImagem != null){
-                        salvarImagemFirebase();
+                                loja.setNome(empresa);
+                                loja.setCNPJ(CNPJ);
+                                loja.setPedidoMinimo(pedidoMinimo);
+                                loja.setFreteGratis(frete);
+                                loja.setPublickey(publickey);
+                                loja.setAccessToken(acessToken);
+                                loja.setParcelas(parcelas);
 
-                    }else if (loja.getUrlLogo() != null){
-                        loja.salvar();
+                                if (caminhoImagem != null){
+                                    salvarImagemFirebase();
+
+                                }else if (loja.getUrlLogo() != null){
+                                    loja.salvar();
+                                }else {
+                                    ocultaTeclado();
+                                    Toast.makeText(this, "Escolha uma logo para sua empresa.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }else {
+                                binding.edtParcelas.setError("Minimo 1 e máximo 12.");
+                                binding.edtParcelas.requestFocus();
+
+                            }
+                        }else {
+                            binding.edtAcessToken.setError("Informe o seu acessToken");
+                            binding.edtAcessToken.requestFocus();
+
+                        }
                     }else {
-                        ocultaTeclado();
-                        Toast.makeText(this, "Escolha uma logo para sua empresa.", Toast.LENGTH_SHORT).show();
+                        binding.edtPublickey.setError("Informe sua public key.");
+                        binding.edtPublickey.requestFocus();
+
                     }
 
                 }else {

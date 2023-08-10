@@ -30,42 +30,54 @@ public class CadastroActivity extends AppCompatActivity {
     public void validaDados(View view){
         String nome = binding.editNome.getText().toString().trim();
         String email = binding.editEmail.getText().toString().trim();
+        String telefone = binding.edtTelefone.getMasked();
         String senha = binding.editSenha.getText().toString().trim();
         String confirmaSenha = binding.editConfirmaSenha.getText().toString().trim();
 
         if (!nome.isEmpty()){
             if (!email.isEmpty()){
-                if (!senha.isEmpty()){
-                    if (!confirmaSenha.isEmpty()){
+               if (telefone.isEmpty()){
+                   if (telefone.length() == 15){
+                       if (!senha.isEmpty()){
+                           if (!confirmaSenha.isEmpty()){
 
-                        if (senha.equals(confirmaSenha)){
+                               if (senha.equals(confirmaSenha)){
 
-                            binding.progressBar.setVisibility(View.VISIBLE);
-
-
-
-                            Usuario usuario = new Usuario();
-                            usuario.setNome(nome);
-                            usuario.setEmail(email);
-                            usuario.setSenha(senha);
-
-                            criarConta(usuario);
+                                   binding.progressBar.setVisibility(View.VISIBLE);
 
 
-                        }else {
-                            binding.editConfirmaSenha.requestFocus();
-                            binding.editConfirmaSenha.setError("Senha não confere.");
-                        }
 
-                    }else {
-                        binding.editConfirmaSenha.requestFocus();
-                        binding.editConfirmaSenha.setError("Confirma sua senha.");
-                    }
+                                   Usuario usuario = new Usuario();
+                                   usuario.setNome(nome);
+                                   usuario.setEmail(email);
+                                   usuario.setTelefone(telefone);
+                                   usuario.setSenha(senha);
 
-                }else {
-                    binding.editSenha.requestFocus();
-                    binding.editSenha.setError("Informe sua senha.");
-                }
+                                   criarConta(usuario);
+
+
+                               }else {
+                                   binding.editConfirmaSenha.requestFocus();
+                                   binding.editConfirmaSenha.setError("Senha não confere.");
+                               }
+
+                           }else {
+                               binding.editConfirmaSenha.requestFocus();
+                               binding.editConfirmaSenha.setError("Confirma sua senha.");
+                           }
+
+                       }else {
+                           binding.editSenha.requestFocus();
+                           binding.editSenha.setError("Informe sua senha.");
+                       }
+                   }else {
+                       binding.edtTelefone.requestFocus();
+                       binding.edtTelefone.setError("Formato do telefone inválido!");
+                   }
+               }else {
+                   binding.edtTelefone.requestFocus();
+                   binding.edtTelefone.setError("Informe um numero de telefone!");
+               }
 
             }else {
                 binding.editEmail.requestFocus();

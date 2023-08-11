@@ -44,6 +44,13 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
         binding = ActivityUsuarioResumoPedidoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
+        recuperaDados();
+
+    }
+
+    private void recuperaDados(){
         itemPedidoDAO = new ItemPedidoDAO(this);
         itemDAO = new ItemDAO(this);
 
@@ -54,7 +61,6 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
         getExtra();
 
         corStatusBar();
-
     }
 
     private void getExtra(){
@@ -69,7 +75,16 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
         binding.btnAlterarPagamento.setOnClickListener(view -> finish());
 
-        binding.btnFinalizar.setOnClickListener(view -> finalizarPedido());
+        binding.btnFinalizar.setOnClickListener(view -> {
+            if (this.formaPagamento.isCredito()){
+                Intent intent = new Intent(this, UsuarioPagamentoPedidoActivity.class);
+                intent.putExtra("enderecoSelecionado", enderecoList.get(0));
+                startActivity(intent);
+            }else {
+                finalizarPedido();
+            }
+
+        });
 
 
     }

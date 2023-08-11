@@ -42,6 +42,10 @@ public class LojaPagamentosActivity extends AppCompatActivity implements LojaPag
         binding = ActivityLojaPagamentosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        recuperaDados();
+    }
+
+    private void recuperaDados(){
         corStausBar();
 
         iniciaComponentes();
@@ -103,6 +107,7 @@ public class LojaPagamentosActivity extends AppCompatActivity implements LojaPag
         });
 
     }
+
 
     private void showDialogDelete(FormaPagamento formaPagamento ){
         AlertDialog.Builder builder = new AlertDialog.Builder(

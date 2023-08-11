@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,26 +34,21 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
         super.onCreate(savedInstanceState);
         binding = ActivityUsuarioSelecionaPagamentoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         iniciaComponentes();
         configClicks();
         configRV();
         recuperaFormaPagamento();
+        corStatusBar();
     }
 
     private void configClicks(){
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());
 
         binding.btnContinua.setOnClickListener(view -> {
-            if (formaPagamento != null){
-                Intent intent = new Intent(this, UsuarioResumoPedidoActivity.class);
-                intent.putExtra("pagamentoSelecionado", formaPagamento);
-                startActivity(intent);
-            }else {
-                Toast.makeText(this, "Seleciona uma forma de pagamento.", Toast.LENGTH_SHORT).show();
-
-            }
+            Intent intent = new Intent(this, UsuarioResumoPedidoActivity.class);
+            intent.putExtra("pagamentoSelecionado", formaPagamento);
+            startActivity(intent);
 
         });
     }
@@ -104,5 +98,8 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
         this.formaPagamento = pagamento;
 
 
+    }
+    private void corStatusBar(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
 }

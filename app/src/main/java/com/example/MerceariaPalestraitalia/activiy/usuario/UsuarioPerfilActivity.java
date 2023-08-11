@@ -29,6 +29,10 @@ public class UsuarioPerfilActivity extends AppCompatActivity {
         binding = ActivityUsuarioPerfilBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+       recuperaDados();
+    }
+
+    private void recuperaDados(){
         iniciaComponentes();
         configClicks();
         recuperaUsuario();

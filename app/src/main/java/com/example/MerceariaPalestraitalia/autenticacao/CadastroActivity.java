@@ -36,7 +36,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         if (!nome.isEmpty()){
             if (!email.isEmpty()){
-               if (telefone.isEmpty()){
+               if (!telefone.isEmpty()){
                    if (telefone.length() == 15){
                        if (!senha.isEmpty()){
                            if (!confirmaSenha.isEmpty()){

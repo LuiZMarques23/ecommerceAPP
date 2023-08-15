@@ -2,6 +2,7 @@ package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -138,8 +139,13 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-                String id = response.body().get("id").getAsString();
-                continuaPagamento(id);
+
+                Log.i("INFOTESTE", "onResponse:" + response.body());
+//                String id = response.body().get("id").getAsString();
+//                continuaPagamento(id);
+
+
+
             }
 
             @Override

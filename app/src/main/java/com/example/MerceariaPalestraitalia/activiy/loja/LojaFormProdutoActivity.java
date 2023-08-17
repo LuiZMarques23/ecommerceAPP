@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.adapter.CategoriaDialogAdapter;
 import com.example.MerceariaPalestraitalia.databinding.ActivityLojaFormProdutoBinding;
@@ -42,7 +43,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,6 +71,10 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         super.onCreate(savedInstanceState);
         binding = ActivityLojaFormProdutoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        recuperDados();
+    }
+    private void recuperDados(){
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         getExtra();
@@ -98,9 +102,21 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         binding.imageFake1.setVisibility(View.GONE);
         binding.imageFake2.setVisibility(View.GONE);
 
-        Picasso.get().load(produto.getUrlImagens().get(0).getCaminhoImagem()).into(binding.imagemProduto0);
-        Picasso.get().load(produto.getUrlImagens().get(1).getCaminhoImagem()).into(binding.imagemProduto1);
-        Picasso.get().load(produto.getUrlImagens().get(2).getCaminhoImagem()).into(binding.imagemProduto2);
+
+        Glide.with(this)
+                .load(produto.getUrlImagens().get(0).getCaminhoImagem())
+                .centerCrop()
+                .into(binding.imagemProduto0);
+
+        Glide.with(this)
+                .load(produto.getUrlImagens().get(1).getCaminhoImagem())
+                .centerCrop()
+                .into(binding.imagemProduto1);
+
+        Glide.with(this)
+                .load(produto.getUrlImagens().get(2).getCaminhoImagem())
+                .centerCrop()
+                .into(binding.imagemProduto2);
 
         binding.edtTitulo.setText(produto.getTitulo());
         binding.edtDescricao.setText(produto.getDescricao());
@@ -119,7 +135,7 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
     private void configRv(){
         categoriaBinding.rvCategorias.setLayoutManager(new LinearLayoutManager(this));
         categoriaBinding.rvCategorias.setHasFixedSize(true);
-        CategoriaDialogAdapter categoriaDialogAdapter = new CategoriaDialogAdapter(idsCategoriasSelecionadas, categoriaList, this);
+        CategoriaDialogAdapter categoriaDialogAdapter = new CategoriaDialogAdapter(idsCategoriasSelecionadas, categoriaList, this, this);
         categoriaBinding.rvCategorias.setAdapter(categoriaDialogAdapter);
     }
     public void showDialogCategoria(View view){

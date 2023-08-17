@@ -35,6 +35,10 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
         binding = ActivityUsuarioSelecionaPagamentoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        recuperaDados();
+    }
+
+    private void recuperaDados(){
         iniciaComponentes();
         configClicks();
         configRV();

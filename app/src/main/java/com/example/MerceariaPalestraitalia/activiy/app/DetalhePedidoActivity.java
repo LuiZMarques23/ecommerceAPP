@@ -24,6 +24,11 @@ public class DetalhePedidoActivity extends AppCompatActivity {
         binding = ActivityDetalhePedidoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+        recuperaDados();
+    }
+
+    private void recuperaDados(){
         corStatusBar();
 
         iniciaComponetes();
@@ -31,7 +36,6 @@ public class DetalhePedidoActivity extends AppCompatActivity {
         getExtra();
 
         configClick();
-
     }
 
     private void configRv(){

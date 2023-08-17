@@ -18,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.MerceariaPalestraitalia.databinding.ActivityLojaConfigBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Loja;
@@ -29,7 +30,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Locale;
@@ -46,12 +46,17 @@ public class LojaConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLojaConfigBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        recuperaDados();
+
+    }
+
+    private void recuperaDados(){
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         recuperaLoja();
         iniciaComponentes();
         configClicks();
-
     }
 
     private void configClicks(){
@@ -90,7 +95,10 @@ public class LojaConfigActivity extends AppCompatActivity {
     }
     private void configDados(){
         if (loja.getUrlLogo() != null){
-            Picasso.get().load(loja.getUrlLogo()).into(binding.imgLogo);
+            Glide.with(this)
+                    .load(loja.getUrlLogo())
+                    .centerCrop()
+                    .into(binding.imgLogo);
         }
         if (loja.getUrlLogo() != null){
             binding.edtEmpresa.setText(loja.getNome());

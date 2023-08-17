@@ -196,7 +196,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
 
     }
     private void configDados(){
-        binding.sliderView.setSliderAdapter(new SliderAdapter(produtoSelecionado.getUrlImagens()));
+        binding.sliderView.setSliderAdapter(new SliderAdapter(produtoSelecionado.getUrlImagens(), this));
         binding.sliderView.startAutoCycle();
         binding.sliderView.setScrollTimeInSec(4);
         binding.sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);

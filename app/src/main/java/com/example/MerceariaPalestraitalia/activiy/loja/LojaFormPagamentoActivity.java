@@ -28,6 +28,11 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLojaFormPagamentoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        recuperaDados();
+    }
+
+    private void recuperaDados(){
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         iniciaComponentes();

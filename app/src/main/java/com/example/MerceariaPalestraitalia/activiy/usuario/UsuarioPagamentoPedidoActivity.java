@@ -1,21 +1,25 @@
 package com.example.MerceariaPalestraitalia.activiy.usuario;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.MerceariaPalestraitalia.DAO.ItemDAO;
 import com.example.MerceariaPalestraitalia.DAO.ItemPedidoDAO;
 import com.example.MerceariaPalestraitalia.api.MercadoPagoService;
-import com.example.MerceariaPalestraitalia.databinding.ActivityUsuarioSelecionaPagamentoBinding;
+import com.example.MerceariaPalestraitalia.databinding.ActivityUsuarioPagamentoPedidoBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Endereco;
+import com.example.MerceariaPalestraitalia.model.FormaPagamento;
 import com.example.MerceariaPalestraitalia.model.ItemPedido;
 import com.example.MerceariaPalestraitalia.model.Loja;
+import com.example.MerceariaPalestraitalia.model.Pedido;
 import com.example.MerceariaPalestraitalia.model.Produto;
+import com.example.MerceariaPalestraitalia.model.StatusPedido;
 import com.example.MerceariaPalestraitalia.model.Usuario;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +29,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mercadopago.android.px.configuration.AdvancedConfiguration;
 import com.mercadopago.android.px.core.MercadoPagoCheckout;
+import com.mercadopago.android.px.model.Payment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +42,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
 
-    private final int REQUEST_CODE = 100;
+    private final int REQUEST_MERCADO_PAGO = 100;
 
-    private ActivityUsuarioSelecionaPagamentoBinding binding;
+    private ActivityUsuarioPagamentoPedidoBinding binding;
 
+    private FormaPagamento formaPagamento;
     private Endereco enderecoSelecionado;
     private Usuario usuario;
     private Loja loja;
@@ -52,7 +58,7 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityUsuarioSelecionaPagamentoBinding.inflate(getLayoutInflater());
+        binding = ActivityUsuarioPagamentoPedidoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         recuperaDados();
@@ -121,7 +127,6 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
 
 
     }
-
     private void iniciaRetrofit(){
         retrofit = new Retrofit
                 .Builder()
@@ -129,7 +134,6 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
-
     private void efetuarPagamento(JsonObject dados){
         String url = "checkout/preferences?access_token=" + loja.getAccessToken();
 
@@ -139,10 +143,8 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull Response<JsonObject> response) {
-
-                Log.i("INFOTESTE", "onResponse:" + response.body());
-//                String id = response.body().get("id").getAsString();
-//                continuaPagamento(id);
+                String id = response.body().get("id").getAsString();
+                continuaPagamento(id);
 
 
 
@@ -154,7 +156,6 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
             }
         });
     }
-
     private void continuaPagamento(String idPagamento) {
         final AdvancedConfiguration advancedConfiguration =
                 new AdvancedConfiguration.Builder().setBankDealsEnabled(false).build();
@@ -162,7 +163,7 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
         new MercadoPagoCheckout
                 .Builder(loja.getPublickey(), idPagamento)
                 .setAdvancedConfiguration(advancedConfiguration).build()
-                .startPayment(this, REQUEST_CODE);
+                .startPayment(this, REQUEST_MERCADO_PAGO);
     }
     private void recuperaDados(){
         itemPedidoDAO = new ItemPedidoDAO(this);
@@ -178,6 +179,7 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             enderecoSelecionado = (Endereco) bundle.getSerializable("enderecoSelecionado");
+            formaPagamento = (FormaPagamento) bundle.getSerializable("pagamentoSelecionado");
         }
     }
     private void recuperaUsuario(){
@@ -220,7 +222,63 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
             }
         });
     }
+    private void validaRetorno(Payment payment){
+        String status = payment.getPaymentStatus();
+        switch (status){
+            case "approved":
+                finalizarPedido(StatusPedido.APROVADO);
+                break;
+            case "rejected":
+                finalizarPedido(StatusPedido.CANCELADO);
+                break;
+            case "in_process":
+                finalizarPedido(StatusPedido.PENDENTE);
+                break;
+        }
+    }
+    private void finalizarPedido(StatusPedido statusPedido){
+        Pedido pedido = new Pedido();
+        pedido.setIdCliente(FirebaseHelper.getIdFirebase());
+        pedido.setEndereco(enderecoSelecionado);
+        pedido.setTotal(itemPedidoDAO.getTotalPedido());
+        pedido.setPagamento(formaPagamento.getNome());
+        pedido.setStatusPedido(statusPedido);
+
+        if (formaPagamento.getTipoValor().equals("DESC")){
+            pedido.setDesconto(formaPagamento.getValor());
+        }else {
+            pedido.setAcrescimo(formaPagamento.getValor());
+        }
+
+        pedido.setItemPedidos(itemPedidoDAO.getList());
+
+        pedido.salvar(true);
+
+        itemPedidoDAO.limparCarrinho();
+
+        Intent intent = new Intent(this, MainActivityUsuario.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("id", 1);
+        startActivity(intent);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_MERCADO_PAGO){
+            if (resultCode == MercadoPagoCheckout.PAYMENT_RESULT_CODE){
+                Payment payment = (Payment) data.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT);
+
+                validaRetorno(payment);
+
+            }
+        }
+
+    }
+
     private void corStatusBar(){
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
+
 }

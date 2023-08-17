@@ -25,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.bumptech.glide.Glide;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.adapter.CategoriaAdapter;
 import com.example.MerceariaPalestraitalia.databinding.DialogDeleteBinding;
@@ -40,7 +41,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
-import com.squareup.picasso.Picasso;
 import com.tsuryo.swipeablerv.SwipeLeftRightCallback;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ import java.util.List;
 public class LojaCategoriaFragment extends Fragment implements CategoriaAdapter.onClick {
 
     private CategoriaAdapter categoriaAdapter;
-    private List<Categoria> categoriaList = new ArrayList<>();
+    private final List<Categoria> categoriaList = new ArrayList<>();
 
     private DialogFormCadegoriaBinding categoriaBinding;
 
@@ -80,10 +80,12 @@ public class LojaCategoriaFragment extends Fragment implements CategoriaAdapter.
         configRv();
     }
 
+
+
     private void configRv(){
         binding.rvCategorias.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.rvCategorias.setHasFixedSize(true);
-        categoriaAdapter = new CategoriaAdapter(R.layout.item_categoria_vertical, false, categoriaList, this);
+        categoriaAdapter = new CategoriaAdapter(R.layout.item_categoria_vertical, false,categoriaList,this, requireContext());
         binding.rvCategorias.setAdapter(categoriaAdapter);
 
 
@@ -190,7 +192,10 @@ public class LojaCategoriaFragment extends Fragment implements CategoriaAdapter.
 
         if (categoria != null){
             categoriaBinding.edtCategoria.setText(categoria.getNome());
-            Picasso.get().load(categoria.getUrlImagem()).into(categoriaBinding.imagemCategoria);
+            Glide.with(requireContext())
+                    .load(categoria.getUrlImagem())
+                    .centerCrop()
+                    .into(categoriaBinding.imagemCategoria);
 
             categoriaBinding.cbTodos.setChecked(categoria.isTodas());
         }

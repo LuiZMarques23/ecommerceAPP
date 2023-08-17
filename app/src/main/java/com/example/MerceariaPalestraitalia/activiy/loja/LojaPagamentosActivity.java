@@ -107,8 +107,6 @@ public class LojaPagamentosActivity extends AppCompatActivity implements LojaPag
         });
 
     }
-
-
     private void showDialogDelete(FormaPagamento formaPagamento ){
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 this, R.style.CustomAlertDialog2);

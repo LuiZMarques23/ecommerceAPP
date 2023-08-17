@@ -26,9 +26,13 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         new Handler(getMainLooper()).postDelayed(this::verificaAcesso,1000);
 
+       recuperaDados();
+
+    }
+
+    private void recuperaDados(){
         limparCarrinho();
         corStatusBar();
-
     }
 
     private void limparCarrinho(){

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.ItemPedido;
@@ -19,7 +20,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -62,7 +62,10 @@ public class DetalhePedidoAdapter extends RecyclerView.Adapter<DetalhePedidoAdap
                 if (snapshot.exists()){
                     Produto produto = snapshot.getValue(Produto.class);
                     holder.textTitulo.setText(produto.getTitulo());
-                    Picasso.get().load(produto.getUrlImagens().get(0).getCaminhoImagem()).into(holder.imgProduto);
+
+                    Glide.with(context)
+                            .load(produto.getUrlImagens().get(0).getCaminhoImagem())
+                            .into(holder.imgProduto);
                 }else {
 
                     holder.textTitulo.setText("Produto não localizado");

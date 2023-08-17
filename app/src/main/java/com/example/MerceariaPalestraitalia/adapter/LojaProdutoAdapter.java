@@ -11,13 +11,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 import com.example.MerceariaPalestraitalia.model.Produto;
 import com.example.MerceariaPalestraitalia.util.GetMask;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -102,7 +102,10 @@ public class LojaProdutoAdapter extends RecyclerView.Adapter<LojaProdutoAdapter.
 
         for (int i = 0; i < produto.getUrlImagens().size(); i++) {
             if (produto.getUrlImagens().get(i).getIndex() == 0 ){
-                Picasso.get().load(produto.getUrlImagens().get(i).getCaminhoImagem()).into(holder.imagemProduto);
+                Glide.with(context)
+                        .load(produto.getUrlImagens().get(i).getCaminhoImagem())
+                        .centerCrop()
+                        .into(holder.imagemProduto);
 
             }
         }

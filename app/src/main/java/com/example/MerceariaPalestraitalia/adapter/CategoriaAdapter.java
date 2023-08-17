@@ -1,5 +1,6 @@
 package com.example.MerceariaPalestraitalia.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
@@ -11,26 +12,27 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.model.Categoria;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.MyViewHolder> {
 
-    private int layout;
-    private boolean background;
+    private final int layout;
+    private final boolean background;
     private final List<Categoria> categoriaList;
-    private onClick onClick;
+    private final onClick onClick;
+    private final Context context;
     private int row_index = 0;
 
-    public CategoriaAdapter(int layout, boolean background, List<Categoria> categoriaList, CategoriaAdapter.onClick onClick) {
+    public CategoriaAdapter(int layout, boolean background, List<Categoria> categoriaList, CategoriaAdapter.onClick onClick, Context context) {
         this.layout = layout;
         this.background = background;
         this.categoriaList = categoriaList;
         this.onClick = onClick;
-
+        this.context = context;
     }
 
     @NonNull
@@ -71,7 +73,11 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.MyVi
 
         holder.nomeCategoria.setText(categoria.getNome());
 
-        Picasso.get().load(categoria.getUrlImagem()).into(holder.imagemCategoria);
+
+        Glide.with(context)
+                .load(categoria.getUrlImagem())
+                .centerCrop()
+                .into(holder.imagemCategoria);
 
 
     }

@@ -20,6 +20,12 @@ public class MainActivityEmpresa extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainEmpresaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        recuperaDados();
+    }
+
+    private void recuperaDados(){
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         NavHostFragment navHostFragment =

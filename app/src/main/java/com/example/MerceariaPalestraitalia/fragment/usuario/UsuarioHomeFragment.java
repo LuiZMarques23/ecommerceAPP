@@ -128,7 +128,7 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
     private void filtraProdutoCategoria(){
 
        if (!categoriaSelecionada.isTodas()){
-
+           filtroProdutoCategoriaList.clear();
            for (Produto produto : produtoList){
                if (produto.getIdsCategorias().contains(categoriaSelecionada.getId())){
                    if (!filtroProdutoCategoriaList.contains(produto)){

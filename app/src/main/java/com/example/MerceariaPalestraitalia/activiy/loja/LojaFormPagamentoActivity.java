@@ -39,7 +39,6 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
         configClicks();
         getExtra();
     }
-
     private void getExtra(){
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
@@ -61,8 +60,9 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
             binding.rgValor.check(R.id.rbAcrescimo);
         }
 
-    }
+        binding.cbCredito.setChecked(formaPagamento.isCredito());
 
+    }
     private void configClicks(){
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());
         binding.include.btnSalvar.setOnClickListener(view -> validaDados());
@@ -79,7 +79,6 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
 
 
     }
-
     private void validaDados(){
         String nome = binding.edtFormaPagamento.getText().toString().trim();
         String descricao = binding.edtDescricaoPagamento.getText().toString().trim();
@@ -136,7 +135,6 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(binding.edtValor.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
-
     private void iniciaComponentes(){
         binding.edtValor.setLocale(new Locale("PT", "br"));
         binding.include.textTitulo.setText("Forma de pagamento");

@@ -3,6 +3,7 @@ package com.example.MerceariaPalestraitalia.activiy.usuario;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,6 +77,8 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
         JsonObject address = new JsonObject();
         JsonObject payment_methods = new JsonObject();
 
+        JsonArray excluded_payment_methods = new JsonArray();
+
 
         String telefone = usuario.getTelefone()
                 .replace(")","")
@@ -91,6 +94,7 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
         address.addProperty("zip_code", enderecoSelecionado.getCep());
 
         payment_methods.addProperty("installments", loja.getParcelas());
+        payment_methods.add("excluded_payment_methods", excluded_payment_methods);
 
         JsonObject item;
         for (ItemPedido itemPedido : itemPedidoList){
@@ -121,6 +125,7 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
 
         dados.add("payer", payer);
         dados.add("payment_methods", payment_methods);
+        dados.add("excluded_payment_methods", excluded_payment_methods);
 
         efetuarPagamento(dados);
 
@@ -224,12 +229,43 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
     }
     private void validaRetorno(Payment payment){
         String status = payment.getPaymentStatus();
+        String statusDetail = payment.getPaymentStatusDetail();
+
         switch (status){
             case "approved":
                 finalizarPedido(StatusPedido.APROVADO);
                 break;
             case "rejected":
                 finalizarPedido(StatusPedido.CANCELADO);
+                switch (statusDetail){
+                    case "cc_rejected_bad_filled_card_number":
+                        Toast.makeText(this, "Número do cartão inválido!", Toast.LENGTH_LONG).show();
+                        break;
+                    case "cc_rejected_bad_filled_date":
+                        Toast.makeText(this, "Data de vencimento invalida!", Toast.LENGTH_LONG).show();
+                        break;
+                    case "cc_rejected_bad_filled_other":
+                        Toast.makeText(this, "Algum dado do cartão inserido é invalido!", Toast.LENGTH_LONG).show();
+                        break;
+                    case "cc_rejected_bad_filled_security_code":
+                        Toast.makeText(this, "Código de segurança do cartão é invalido!", Toast.LENGTH_LONG).show();
+                        break;
+                    case "cc_rejected_call_for_authorize":
+                        Toast.makeText(this, "Você deve autorizar a operadora do seu cartão a liberar o pagamento do valor ao Mercado Pago.", Toast.LENGTH_LONG).show();
+                        break;
+                    case "cc_rejected_card_disabled":
+                        Toast.makeText(this, "Ligue para a operadora do seu cartão para ativar seu cartão. O telefone está no verso do seu cartão.", Toast.LENGTH_LONG).show();
+                        break;
+                    case "cc_rejected_max_attempts":
+                        Toast.makeText(this, "Você atingiu o limite de tentativas permitido.", Toast.LENGTH_LONG).show();
+                        break;
+                    case "cc_rejected_insufficient_amount":
+                        Toast.makeText(this, "Pagamento negado por falta de saldo.", Toast.LENGTH_LONG).show();
+                        break;
+                    default:
+                        Toast.makeText(this, "Não pudemos processar seu pagamento, tente novamente mais tarde.", Toast.LENGTH_LONG).show();
+                        break;
+                }
                 break;
             case "in_process":
                 finalizarPedido(StatusPedido.PENDENTE);
@@ -262,7 +298,6 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -271,12 +306,12 @@ public class UsuarioPagamentoPedidoActivity extends AppCompatActivity {
                 Payment payment = (Payment) data.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT);
 
                 validaRetorno(payment);
-
+            }else {
+                finish();
             }
         }
 
     }
-
     private void corStatusBar(){
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }

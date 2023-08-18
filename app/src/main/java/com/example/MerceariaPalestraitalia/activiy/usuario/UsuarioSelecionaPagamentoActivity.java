@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,18 +46,19 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
         recuperaFormaPagamento();
         corStatusBar();
     }
-
     private void configClicks(){
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());
+        if (formaPagamento != null){
+            binding.btnContinua.setOnClickListener(view -> {
+                Intent intent = new Intent(this, UsuarioResumoPedidoActivity.class);
+                intent.putExtra("pagamentoSelecionado", formaPagamento);
+                startActivity(intent);
+            });
+        }else {
+            Toast.makeText(this, "Seleciona a forma de pagamento do seu pedidos.", Toast.LENGTH_SHORT).show();
 
-        binding.btnContinua.setOnClickListener(view -> {
-            Intent intent = new Intent(this, UsuarioResumoPedidoActivity.class);
-            intent.putExtra("pagamentoSelecionado", formaPagamento);
-            startActivity(intent);
-
-        });
+        }
     }
-
     private void recuperaFormaPagamento(){
         DatabaseReference pagamentoRef = FirebaseHelper.getDatabaseReference()
                 .child("formapagamento");
@@ -85,18 +87,15 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
             }
         });
     }
-
     private void configRV(){
         binding.rvPagamentos.setLayoutManager(new LinearLayoutManager(this));
         binding.rvPagamentos.setHasFixedSize(true);
         usuarioPagamentoAdapter = new UsuarioPagamentoAdapter(formaPagamentoList, this);
         binding.rvPagamentos.setAdapter(usuarioPagamentoAdapter);
     }
-
     private void iniciaComponentes(){
         binding.include.textTitulo.setText("Formas de pagamento");
     }
-
     @Override
     public void onClickListener(FormaPagamento pagamento) {
         this.formaPagamento = pagamento;

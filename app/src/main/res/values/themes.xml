@@ -5,6 +5,7 @@
          <item name="colorPrimary">@color/white</item>
          <item name="colorPrimaryVariant">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="colorSecondary">@color/color_azul</item>
 
 
     </style>

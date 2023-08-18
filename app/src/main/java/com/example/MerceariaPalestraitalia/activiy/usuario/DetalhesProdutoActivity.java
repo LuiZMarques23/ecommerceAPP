@@ -57,6 +57,9 @@ public class DetalhesProdutoActivity extends AppCompatActivity implements LojaPr
         binding = ActivityDetalhesProdutoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        recuperaDados();
+    }
+    private void recuperaDados(){
         itemDAO = new ItemDAO(this);
         itemPedidoDAO = new ItemPedidoDAO(this);
 

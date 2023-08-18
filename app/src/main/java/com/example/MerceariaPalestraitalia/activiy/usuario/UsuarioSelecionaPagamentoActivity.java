@@ -48,16 +48,16 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
     }
     private void configClicks(){
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());
+
+        binding.btnContinua.setOnClickListener(view -> {
         if (formaPagamento != null){
-            binding.btnContinua.setOnClickListener(view -> {
                 Intent intent = new Intent(this, UsuarioResumoPedidoActivity.class);
                 intent.putExtra("pagamentoSelecionado", formaPagamento);
                 startActivity(intent);
-            });
         }else {
             Toast.makeText(this, "Seleciona a forma de pagamento do seu pedidos.", Toast.LENGTH_SHORT).show();
-
         }
+        });
     }
     private void recuperaFormaPagamento(){
         DatabaseReference pagamentoRef = FirebaseHelper.getDatabaseReference()

@@ -179,8 +179,6 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
         }
 
-//        binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
-//        binding.textValor.setText(getString(R.string.valor_total_carrinho, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
     }
 
     private void recuperaEndereco(){

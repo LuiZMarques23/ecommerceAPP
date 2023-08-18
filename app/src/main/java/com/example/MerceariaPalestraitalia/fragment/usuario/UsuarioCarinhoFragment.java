@@ -64,6 +64,10 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+       recuperaDados();
+    }
+
+    private void recuperaDados(){
         itemDAO = new ItemDAO(requireContext());
         itemPedidoDAO = new ItemPedidoDAO(requireContext());
         itemPedidoList.addAll(itemPedidoDAO.getList());

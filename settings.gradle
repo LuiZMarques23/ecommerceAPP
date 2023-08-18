@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 
 }
-rootProject.name = "palestraItalia"
+rootProject.name = "palestraitalia"
 include ':app'

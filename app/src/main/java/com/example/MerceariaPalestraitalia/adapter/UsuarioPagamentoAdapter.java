@@ -18,7 +18,7 @@ public class UsuarioPagamentoAdapter extends RecyclerView.Adapter<UsuarioPagamen
 
     private final List<FormaPagamento> formaPagamentoList;
     private final onClick onClick;
-    private int row_index = 1;
+    private int row_index = -1;
 
     public UsuarioPagamentoAdapter(List<FormaPagamento> formaPagamentoList, UsuarioPagamentoAdapter.onClick onClick) {
         this.formaPagamentoList = formaPagamentoList;

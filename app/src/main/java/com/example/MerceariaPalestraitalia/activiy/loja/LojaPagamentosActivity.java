@@ -178,6 +178,7 @@ public class LojaPagamentosActivity extends AppCompatActivity implements LojaPag
     public void onClickListener(FormaPagamento formaPagamento) {
         Intent intent = new Intent(this, LojaFormPagamentoActivity.class);
         intent.putExtra("formaPagamentoSelecionada", formaPagamento);
+        startActivity(intent);
 
 
 

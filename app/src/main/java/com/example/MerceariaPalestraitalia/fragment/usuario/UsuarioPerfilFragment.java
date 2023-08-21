@@ -58,11 +58,8 @@ public class UsuarioPerfilFragment extends Fragment {
 
             startActivity(new Intent(requireContext(), MainActivityUsuario.class));
         });
-        binding.btnEnderecos.setOnClickListener(view -> {
-            startActivity(new Intent(requireContext(), UsuarioEnderecoActivity.class));
+        binding.btnEnderecos.setOnClickListener(view -> startActivity( UsuarioEnderecoActivity.class));
 
-
-        });
         binding.btnPolitica.setOnClickListener(view -> startActivity(PoliticaActivity.class));
         binding.btnAjuda.setOnClickListener(view -> startActivity(AjudaActivity.class));
     }

@@ -121,66 +121,61 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
     }
 
-    private void configDados(){
+    private void configDados() {
         ItemPedidoDAO itemPedidoDAO = new ItemPedidoDAO(this);
 
         binding.include.textTitulo.setText("Resumo pedido");
-        binding.include.include.ibVoltar.setOnClickListener(view -> finish());
+        binding.include.include.ibVoltar.setOnClickListener(v -> finish());
 
-        if (!enderecoList.isEmpty()){
+        if (!enderecoList.isEmpty()) {
             Endereco endereco = enderecoList.get(0);
 
             StringBuilder enderecoCompleto = new StringBuilder();
             enderecoCompleto.append(endereco.getLogradouro())
-                            .append(", ")
-                                    .append(endereco.getNumero())
-                                            .append("\n")
-                                                    .append(endereco.getBairro())
-                                                            .append(", ")
-                                                                    .append(endereco.getLocalidade())
-                                                                            .append("/ ")
-                                                                                    .append(endereco.getUf())
-                                                                                            .append("\n")
-                                                                                                    .append("CEP: ")
-                                                                                                            .append(endereco.getCep());
-
+                    .append(", ")
+                    .append(endereco.getNumero())
+                    .append("\n")
+                    .append(endereco.getBairro())
+                    .append(", ")
+                    .append(endereco.getLocalidade())
+                    .append("/")
+                    .append(endereco.getUf())
+                    .append("\n")
+                    .append("CEP: ")
+                    .append(endereco.getCep());
 
             binding.textEnderecoEntrega.setText(enderecoCompleto);
 
-            binding.btnAlterarEndereco.setText("ALTERAR ENDEREÇO DE ENTREGA");
-
-        }else {
-            binding.textEnderecoEntrega.setText("Nenhum endereço cadastrado.");
-            binding.btnAlterarEndereco.setText("Cadastra endereço.");
+            binding.btnAlterarEndereco.setText("Alterar endereço de entrega");
+        } else {
+            binding.textEnderecoEntrega.setText("Nenhum endereço cadastrado");
+            binding.btnAlterarEndereco.setText("Cadastrar endereço");
         }
 
         binding.textNomePagamento.setText(formaPagamento.getNome());
 
-        if (formaPagamento.getTipoValor().equals("DESC")){
+        if (formaPagamento.getTipoValor().equals("DESC")) {
             binding.textTipoPagamento.setText("Desconto");
-
-        }else {
+        } else {
             binding.textTipoPagamento.setText("Acréscimo");
-
         }
 
         double valorExtra = formaPagamento.getValor();
 
-        binding.textValorTipoPagamento.setText(getString(R.string.valor, GetMask.getValor(valorExtra)));
+        binding.textValorTipoPagamento.setText(
+                getString(R.string.valor, GetMask.getValor(valorExtra))
+        );
 
-        if (itemPedidoDAO.getTotalPedido() >= valorExtra){
-
+        if (itemPedidoDAO.getTotalPedido() >= valorExtra) {
             binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() - valorExtra)));
             binding.textValor.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() - valorExtra)));
-
-        }else {
+        } else {
             binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(0)));
             binding.textValor.setText(getString(R.string.valor, GetMask.getValor(0)));
-
         }
-
-
     }
+
+
 
     private void recuperaEndereco(){
         DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()

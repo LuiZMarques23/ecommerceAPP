@@ -67,8 +67,8 @@
 
                         <ImageView
                             android:id="@+id/imageFake0"
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_photo"
                             app:tint="@color/color_azul" />
@@ -96,8 +96,8 @@
 
                         <ImageView
                             android:id="@+id/imageFake1"
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_photo"
                             app:tint="@color/color_azul" />
@@ -121,8 +121,8 @@
 
                         <ImageView
                             android:id="@+id/imageFake2"
-                            android:layout_width="65dp"
-                            android:layout_height="65dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_photo"
                             app:tint="@color/color_azul" />

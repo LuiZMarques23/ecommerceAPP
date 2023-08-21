@@ -80,6 +80,8 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+
+
         });
 
         binding.searchView.setOnCloseListener(() -> {

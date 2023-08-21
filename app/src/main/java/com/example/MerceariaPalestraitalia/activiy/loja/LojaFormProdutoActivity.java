@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -341,6 +342,7 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         }
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     private void verificaPermissaoGaleria() {
 
         PermissionListener permissionlistener = new PermissionListener() {
@@ -419,7 +421,7 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         // Continue only if the File was successfully created
         if (photoFile != null) {
             Uri photoURI = FileProvider.getUriForFile(this,
-                    "com.example.ecommerce.fileprovider",
+                    "com.example.MerceariaPalestraitalia.fileprovider",
                     photoFile);
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             resultLauncher.launch(takePictureIntent);

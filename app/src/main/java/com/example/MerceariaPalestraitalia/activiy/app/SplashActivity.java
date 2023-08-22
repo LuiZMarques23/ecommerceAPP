@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new Handler(getMainLooper()).postDelayed(this::verificaAcesso,2004);
+        new Handler(getMainLooper()).postDelayed(this::verificaAcesso,3000);
 
        recuperaDados();
 

@@ -90,6 +90,8 @@ public class LojaPedidoAdapter extends RecyclerView.Adapter<LojaPedidoAdapter.My
                     Usuario usuario = snapshot.getValue(Usuario.class);
                     assert usuario != null;
                     holder.textNomeCliente.setText(usuario.getNome());
+                    holder.textNomeTelefone.setText(usuario.getTelefone());
+
                 }else {
                     holder.textNomeCliente.setText("Usuario não encontrado");
 
@@ -114,7 +116,7 @@ public class LojaPedidoAdapter extends RecyclerView.Adapter<LojaPedidoAdapter.My
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textIdPedido, textStatusPedido, textTotalPedido,textDataPedido, textNomeCliente;
+        TextView textIdPedido, textStatusPedido, textTotalPedido,textDataPedido, textNomeCliente, textNomeTelefone;
         Button btnDetalhePedido, btnStatusPedido;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -126,6 +128,7 @@ public class LojaPedidoAdapter extends RecyclerView.Adapter<LojaPedidoAdapter.My
             textNomeCliente = itemView.findViewById(R.id.textNomeCliente);
             btnDetalhePedido = itemView.findViewById(R.id.btnDetalhePedido);
             btnStatusPedido = itemView.findViewById(R.id.btnStatusPedido);
+            textNomeTelefone = itemView.findViewById(R.id.textNomeTelefone);
         }
     }
 }

@@ -91,5 +91,11 @@ dependencies {
     implementation 'com.mercadopago.android.px:checkout:4.20.0'
 
 
+    // splashActivity
+    // https://app.lottiefiles.com/
+    // https://github.com/airbnb/lottie-android
+    implementation ("com.airbnb.android:lottie:6.1.0")
+
+
 
 }

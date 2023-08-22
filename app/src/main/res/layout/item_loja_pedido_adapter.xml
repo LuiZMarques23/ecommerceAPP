@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView7"
         android:layout_width="0dp"
-        android:layout_height="190dp"
+        android:layout_height="220dp"
         android:layout_margin="8dp"
         app:cardElevation="5dp"
         app:cardCornerRadius="5dp"
@@ -74,6 +74,30 @@
                 app:layout_constraintTop_toBottomOf="@+id/textStatusPedido" />
 
             <TextView
+                android:id="@+id/textView24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Telefone:"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+
+            <TextView
+                android:id="@+id/textNomeTelefone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView24"
+                tools:text="Telefone" />
+
+            <TextView
                 android:id="@+id/textNomeCliente"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -82,8 +106,10 @@
                 android:maxLines="1"
                 app:layout_constraintBottom_toBottomOf="@+id/textView17"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView17"
                 app:layout_constraintTop_toTopOf="@+id/textView17"
+                app:layout_constraintVertical_bias="0.0"
                 tools:text="Luiz Henrique" />
 
             <TextView

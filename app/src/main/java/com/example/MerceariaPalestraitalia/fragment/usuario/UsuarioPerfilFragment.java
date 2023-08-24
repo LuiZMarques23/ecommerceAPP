@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.MerceariaPalestraitalia.activiy.usuario.AjudaActivity;
 import com.example.MerceariaPalestraitalia.activiy.usuario.MainActivityUsuario;
 import com.example.MerceariaPalestraitalia.activiy.usuario.PoliticaActivity;
+import com.example.MerceariaPalestraitalia.activiy.usuario.TermoUsoActivity;
 import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioEnderecoActivity;
 import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioPerfilActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.CadastroActivity;
@@ -62,6 +63,7 @@ public class UsuarioPerfilFragment extends Fragment {
 
         binding.btnPolitica.setOnClickListener(view -> startActivity(PoliticaActivity.class));
         binding.btnAjuda.setOnClickListener(view -> startActivity(AjudaActivity.class));
+        binding.btnTermosUso.setOnClickListener(view -> startActivity(TermoUsoActivity.class));
     }
 
     private void startActivity(Class<?> clazz){

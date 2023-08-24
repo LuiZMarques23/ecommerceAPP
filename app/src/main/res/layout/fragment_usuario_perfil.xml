@@ -205,6 +205,65 @@
             <include layout="@layout/divisor"/>
 
             <LinearLayout
+                android:id="@+id/btnTermosUso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_gravity="center_vertical"
+                        app:tint="@color/color_azul"
+                        android:src="@drawable/ic_termos"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="32dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Termos uso "
+                            android:textSize="16dp"
+                            android:textColor="@color/color_azul"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="E condições"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
+                        android:src="@drawable/ic_seta_direita"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/divisor"/>
+
+            </LinearLayout>
+
+
+
+
+
+            <LinearLayout
                 android:id="@+id/btnAjuda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -250,6 +309,8 @@
             </LinearLayout>
 
             <include layout="@layout/divisor"/>
+
+
 
            <LinearLayout
                android:id="@+id/btnDeslogar"
@@ -304,6 +365,8 @@
                <include layout="@layout/divisor"/>
 
            </LinearLayout>
+
+
 
         </LinearLayout>
 

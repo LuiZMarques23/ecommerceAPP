@@ -5,26 +5,25 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.MerceariaPalestraitalia.databinding.ActivityPoliticaBinding;
+import com.example.MerceariaPalestraitalia.databinding.ActivityTermoUsoBinding;
 
-public class PoliticaActivity extends AppCompatActivity {
+public class TermoUsoActivity extends AppCompatActivity {
 
-    private ActivityPoliticaBinding binding;
+    private ActivityTermoUsoBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPoliticaBinding.inflate(getLayoutInflater());
+        binding = ActivityTermoUsoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        recuperaDados();
+        recuperarDados();
+
     }
-    private void recuperaDados(){
-        binding.include.textTitulo.setText("Politica de Privacidade");
+    private void recuperarDados(){
+        binding.include.textTitulo.setText("Termos de uso");
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());
 
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
     }
-
-
 }

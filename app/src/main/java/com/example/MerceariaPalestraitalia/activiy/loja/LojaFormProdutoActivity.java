@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -151,6 +150,7 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         });
 
         categoriaBinding.btnSalvar.setOnClickListener(v -> {
+
 
             dialog.dismiss();
         });
@@ -285,6 +285,7 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         }else {
             binding.edtTitulo.setError("Informação obrigatória.");
 
+
         }
 
     }
@@ -342,7 +343,7 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
         }
 
     }
-    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+
     private void verificaPermissaoGaleria() {
 
         PermissionListener permissionlistener = new PermissionListener() {

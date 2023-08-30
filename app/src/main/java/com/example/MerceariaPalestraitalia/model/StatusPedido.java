@@ -16,7 +16,7 @@ public enum StatusPedido {
                 statusPedido = "caminho";
                 break;
             case MOTOBOY_CHAMANDO:
-                statusPedido = "motoboy chamando";
+                statusPedido = "motoboy chegou!";
                 break;
             case ENTREGUE:
                 statusPedido = "entregue";

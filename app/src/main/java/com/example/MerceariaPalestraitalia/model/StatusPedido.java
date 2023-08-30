@@ -1,7 +1,7 @@
 package com.example.MerceariaPalestraitalia.model;
 
 public enum StatusPedido {
-    PENDENTE,APROVADO,CAMINHO,ENTREGUE,CANCELADO;
+    PENDENTE,APROVADO,CAMINHO,MOTOBOY_CHAMANDO,ENTREGUE,CANCELADO;
 
     public static String getStatus(StatusPedido status){
         String statusPedido;
@@ -14,6 +14,9 @@ public enum StatusPedido {
                 break;
             case CAMINHO:
                 statusPedido = "caminho";
+                break;
+            case MOTOBOY_CHAMANDO:
+                statusPedido = "motoboy chamando";
                 break;
             case ENTREGUE:
                 statusPedido = "entregue";

@@ -103,6 +103,7 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
         RadioButton rbPendente = statusBinding.rbPendente;
         RadioButton rbProvado = statusBinding.rbProvado;
         RadioButton rbTransito = statusBinding.rbTransito;
+        RadioButton rbMotoboy = statusBinding.rbMotoboy;
         RadioButton rbEntregue = statusBinding.rbEntregue;
         RadioButton rbCancelado = statusBinding.rbCancelado;
 
@@ -126,6 +127,13 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
 
             case CAMINHO:
                 rgStatus.check(R.id.rbTransito);
+                rbProvado.setEnabled(false);
+                rbPendente.setEnabled(false);
+
+                break;
+
+            case MOTOBOY_CHAMANDO:
+                rgStatus.check(R.id.rbMotoboy);
                 rbProvado.setEnabled(false);
                 rbPendente.setEnabled(false);
 
@@ -165,8 +173,12 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
             }else if (i == R.id.rbTransito){
                 pedido.setStatusPedido(StatusPedido.CAMINHO);
 
-            } else if (i == R.id.rbEntregue) {
+            } else if (i == R.id.rbMotoboy) {
+                pedido.setStatusPedido(StatusPedido.MOTOBOY_CHAMANDO);
+
+            }else if (i == R.id.rbEntregue){
                 pedido.setStatusPedido(StatusPedido.ENTREGUE);
+
             }else {
                 pedido.setStatusPedido(StatusPedido.CANCELADO);
             }

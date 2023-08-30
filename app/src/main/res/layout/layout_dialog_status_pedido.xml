@@ -34,6 +34,13 @@
             android:text="Transito" />
 
         <RadioButton
+            android:id="@+id/rbMotoboy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:text="Motoboy chamando" />
+
+        <RadioButton
             android:id="@+id/rbEntregue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

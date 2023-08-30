@@ -1,6 +1,7 @@
 package com.example.MerceariaPalestraitalia.activiy.usuario;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -35,6 +36,12 @@ public class UsuarioSelecionaEnderecoActivity extends AppCompatActivity implemen
         super.onCreate(savedInstanceState);
         binding = ActivityUsuarioSelecionaEnderecoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        recuperaDados();
+
+    }
+    private void recuperaDados(){
+        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         iniciaComponentes();
 

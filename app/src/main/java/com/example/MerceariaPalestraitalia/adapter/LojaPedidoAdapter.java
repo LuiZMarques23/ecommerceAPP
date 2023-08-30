@@ -68,6 +68,9 @@ public class LojaPedidoAdapter extends RecyclerView.Adapter<LojaPedidoAdapter.My
             case CAMINHO:
                 holder.textStatusPedido.setTextColor(Color.parseColor("#03A9F4"));
                 break;
+            case MOTOBOY_CHAMANDO:
+                holder.textStatusPedido.setTextColor(Color.parseColor("#F40909"));
+                break;
             case ENTREGUE:
                 holder.textStatusPedido.setTextColor(Color.parseColor("#FF500CC7"));
                 break;

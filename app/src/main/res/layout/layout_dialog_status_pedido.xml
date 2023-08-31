@@ -20,6 +20,13 @@
             android:text="Pendente" />
 
         <RadioButton
+            android:id="@+id/rbForaHorarioEntrega"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:text="Fora do Horario entrega" />
+
+        <RadioButton
             android:id="@+id/rbProvado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="0dp"
-            android:text="Motoboy chamando" />
+            android:text="Motoboy chegou" />
 
         <RadioButton
             android:id="@+id/rbEntregue"

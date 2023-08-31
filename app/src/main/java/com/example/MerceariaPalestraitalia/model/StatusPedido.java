@@ -1,13 +1,16 @@
 package com.example.MerceariaPalestraitalia.model;
 
 public enum StatusPedido {
-    PENDENTE,APROVADO,CAMINHO,MOTOBOY_CHAMANDO,ENTREGUE,CANCELADO;
+    PENDENTE,APROVADO,CAMINHO,MOTOBOY_CHAMANDO,HORARIO,ENTREGUE,CANCELADO;
 
     public static String getStatus(StatusPedido status){
         String statusPedido;
         switch (status){
             case PENDENTE:
                 statusPedido = "pendente";
+                break;
+            case HORARIO:
+                statusPedido = "Pedido fora do horario, entregas será no outro dia!";
                 break;
             case APROVADO:
                 statusPedido = "aprovado";

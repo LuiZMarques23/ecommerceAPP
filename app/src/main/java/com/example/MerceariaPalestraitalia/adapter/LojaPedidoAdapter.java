@@ -62,6 +62,9 @@ public class LojaPedidoAdapter extends RecyclerView.Adapter<LojaPedidoAdapter.My
             case PENDENTE:
                 holder.textStatusPedido.setTextColor(Color.parseColor("#FC6E20"));
                 break;
+            case HORARIO:
+                holder.textStatusPedido.setTextColor(Color.parseColor("#FF07FFC5"));
+                break;
             case APROVADO:
                 holder.textStatusPedido.setTextColor(Color.parseColor("#FF4DFB41"));
                 break;

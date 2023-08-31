@@ -101,6 +101,7 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
 
         RadioGroup rgStatus = statusBinding.rgStatus;
         RadioButton rbPendente = statusBinding.rbPendente;
+        RadioButton rbForaHorarioEntrega = statusBinding.rbForaHorarioEntrega;
         RadioButton rbProvado = statusBinding.rbProvado;
         RadioButton rbTransito = statusBinding.rbTransito;
         RadioButton rbMotoboy = statusBinding.rbMotoboy;
@@ -113,39 +114,47 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
                 rgStatus.check(R.id.rbPendente);
                 rbEntregue.setEnabled(true);
                 rbTransito.setEnabled(true);
+                rbMotoboy.setEnabled(true);
                 rbProvado.setEnabled(true);
                 rbCancelado.setEnabled(true);
+                rbForaHorarioEntrega.setEnabled(true);
                 break;
 
+            case HORARIO:
+                rgStatus.check(R.id.rbForaHorarioEntrega);
+                rbPendente.setEnabled(false);
+
+                break;
 
             case APROVADO:
                 rgStatus.check(R.id.rbProvado);
                 rbPendente.setEnabled(false);
-
-
+                rbForaHorarioEntrega.setEnabled(false);
                 break;
 
             case CAMINHO:
                 rgStatus.check(R.id.rbTransito);
                 rbProvado.setEnabled(false);
                 rbPendente.setEnabled(false);
-
+                rbForaHorarioEntrega.setEnabled(false);
                 break;
 
             case MOTOBOY_CHAMANDO:
                 rgStatus.check(R.id.rbMotoboy);
                 rbProvado.setEnabled(false);
+                rbTransito.setEnabled(false);
                 rbPendente.setEnabled(false);
-
+                rbForaHorarioEntrega.setEnabled(false);
                 break;
 
             case ENTREGUE:
                 rgStatus.check(R.id.rbEntregue);
                 rbTransito.setEnabled(false);
+                rbMotoboy.setEnabled(false);
                 rbCancelado.setEnabled(false);
                 rbPendente.setEnabled(false);
                 rbProvado.setEnabled(false);
-
+                rbForaHorarioEntrega.setEnabled(false);
 
                 break;
 
@@ -154,8 +163,9 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
                 rbPendente.setEnabled(false);
                 rbProvado.setEnabled(false);
                 rbTransito.setEnabled(false);
+                rbMotoboy.setEnabled(false);
                 rbEntregue.setEnabled(false);
-
+                rbForaHorarioEntrega.setEnabled(false);
 
                 break;
         }
@@ -167,18 +177,20 @@ public class LojaPedidoFragment extends Fragment implements LojaPedidoAdapter.On
         rgStatus.setOnCheckedChangeListener((radioGroup, i) -> {
             if (i == R.id.rbPendente){
                 pedido.setStatusPedido(StatusPedido.PENDENTE);
-            } else if (i == R.id.rbProvado) {
+            } else if (i == R.id.rbForaHorarioEntrega) {
+                pedido.setStatusPedido(StatusPedido.HORARIO);
+
+            }else if (i == R.id.rbProvado){
                 pedido.setStatusPedido(StatusPedido.APROVADO);
 
-            }else if (i == R.id.rbTransito){
+            } else if (i == R.id.rbTransito) {
                 pedido.setStatusPedido(StatusPedido.CAMINHO);
 
-            } else if (i == R.id.rbMotoboy) {
+            }else if (i == R.id.rbMotoboy){
                 pedido.setStatusPedido(StatusPedido.MOTOBOY_CHAMANDO);
 
             }else if (i == R.id.rbEntregue){
                 pedido.setStatusPedido(StatusPedido.ENTREGUE);
-
             }else {
                 pedido.setStatusPedido(StatusPedido.CANCELADO);
             }

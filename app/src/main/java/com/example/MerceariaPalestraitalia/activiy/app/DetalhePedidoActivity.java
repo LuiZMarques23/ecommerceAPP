@@ -82,6 +82,7 @@ public class DetalhePedidoActivity extends AppCompatActivity {
         binding.textEnderecoEntrega.setText(enderecoCompleto);
 
         binding.textNomePagamento.setText(pedido.getPagamento());
+        binding.textTipoPagamento.setText(pedido.getPagamento());
 
 
         double valorExtra;

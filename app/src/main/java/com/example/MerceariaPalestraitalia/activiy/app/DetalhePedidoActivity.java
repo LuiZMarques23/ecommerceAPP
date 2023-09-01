@@ -60,7 +60,10 @@ public class DetalhePedidoActivity extends AppCompatActivity {
         }
     }
 
-    private void configDados() {
+
+
+    private void configDados(){
+
         Endereco endereco = pedido.getEndereco();
         StringBuilder enderecoCompleto = new StringBuilder();
 
@@ -71,7 +74,7 @@ public class DetalhePedidoActivity extends AppCompatActivity {
                 .append(endereco.getBairro())
                 .append(", ")
                 .append(endereco.getLocalidade())
-                .append("/")
+                .append("/ ")
                 .append(endereco.getUf())
                 .append("\n")
                 .append("CEP: ")
@@ -80,81 +83,35 @@ public class DetalhePedidoActivity extends AppCompatActivity {
 
         binding.textNomePagamento.setText(pedido.getPagamento());
 
+
         double valorExtra;
         double totalPedido = pedido.getTotal();
-        if (pedido.getAcrescimo() > 0) {
-            binding.textTipoPagamento.setText("Acréscimo");
+        if (pedido.getAcrescimo() >0){
+            binding.textValorTipoPagamento.setText("Acréscimo");
             valorExtra = pedido.getAcrescimo();
             totalPedido += valorExtra;
-        } else {
-            binding.textTipoPagamento.setText("Desconto");
+
+        }else {
+            binding.textValorTipoPagamento.setText("Desconto");
             valorExtra = pedido.getDesconto();
             totalPedido -= valorExtra;
+
         }
 
         binding.textValorTipoPagamento.setText(
                 getString(R.string.valor, GetMask.getValor(valorExtra))
         );
 
-        binding.textValorProdutos.setText(getString(R.string.valor,
-                GetMask.getValor(pedido.getTotal())));
+        binding.textValorProdutos.setText(
+                getString(R.string.valor, GetMask.getValor(pedido.getTotal()))
+        );
 
         binding.textValorTotal.setText(
                 getString(R.string.valor, GetMask.getValor(totalPedido))
         );
 
-    }
 
-//    private void configDados(){
-//
-//        Endereco endereco = pedido.getEndereco();
-//        StringBuilder enderecoCompleto = new StringBuilder();
-//
-//        enderecoCompleto.append(endereco.getLogradouro())
-//                .append(", ")
-//                .append(endereco.getNumero())
-//                .append("\n")
-//                .append(endereco.getBairro())
-//                .append(", ")
-//                .append(endereco.getLocalidade())
-//                .append("/ ")
-//                .append(endereco.getUf())
-//                .append("\n")
-//                .append("CEP: ")
-//                .append(endereco.getCep());
-//        binding.textEnderecoEntrega.setText(enderecoCompleto);
-//
-//        binding.textNomePagamento.setText(pedido.getPagamento());
-//
-//
-//        double valorExtra;
-//        double totalPedido = pedido.getTotal();
-//        if (pedido.getAcrescimo() >0){
-//            binding.textValorTipoPagamento.setText("Acréscimo");
-//            valorExtra = pedido.getAcrescimo();
-//            totalPedido += valorExtra;
-//
-//        }else {
-//            binding.textValorTipoPagamento.setText("Desconto");
-//            valorExtra = pedido.getDesconto();
-//            totalPedido -= valorExtra;
-//
-//        }
-//
-//        binding.textValorTipoPagamento.setText(
-//                getString(R.string.valor, GetMask.getValor(valorExtra))
-//        );
-//
-//        binding.textValorProdutos.setText(
-//                getString(R.string.valor, GetMask.getValor(pedido.getTotal()))
-//        );
-//
-//        binding.textValorTotal.setText(
-//                getString(R.string.valor, GetMask.getValor(totalPedido))
-//        );
-//
-//
-//    }
+    }
 
     private void corStatusBar(){
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));

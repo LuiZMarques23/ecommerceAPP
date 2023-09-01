@@ -156,6 +156,8 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
         if (formaPagamento.getTipoValor().equals("DESC")) {
             binding.textTipoPagamento.setText("Desconto");
+
+
         } else {
             binding.textTipoPagamento.setText("Acréscimo");
         }
@@ -164,6 +166,10 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
 
         binding.textValorTipoPagamento.setText(
                 getString(R.string.valor, GetMask.getValor(valorExtra))
+        );
+
+        binding.textValorProdutos.setText(
+                getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido()))
         );
 
         if (itemPedidoDAO.getTotalPedido() >= valorExtra) {

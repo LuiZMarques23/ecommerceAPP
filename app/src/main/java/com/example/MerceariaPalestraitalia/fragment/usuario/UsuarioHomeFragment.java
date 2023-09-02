@@ -202,7 +202,7 @@ public class UsuarioHomeFragment extends Fragment implements CategoriaAdapter.on
     private void configRvProdtudos(List<Produto> produtoList){
         binding.rvProdutos.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         binding.rvProdutos.setHasFixedSize(true);
-        lojaProdutoAdapter = new LojaProdutoAdapter(R.layout.item_produto_adapter,produtoList, requireContext(),true, idsFavoritos, this, this);
+        LojaProdutoAdapter lojaProdutoAdapter = new LojaProdutoAdapter(R.layout.item_produto_adapter,produtoList, requireContext(),true, idsFavoritos, this, this);
         binding.rvProdutos.setAdapter(lojaProdutoAdapter);
     }
     private void recuperaProdutos(){

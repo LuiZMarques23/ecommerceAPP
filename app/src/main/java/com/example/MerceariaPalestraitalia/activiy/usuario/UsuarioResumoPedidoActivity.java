@@ -173,8 +173,8 @@ public class UsuarioResumoPedidoActivity extends AppCompatActivity {
         );
 
         if (itemPedidoDAO.getTotalPedido() >= valorExtra) {
-            binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() - valorExtra)));
-            binding.textValor.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() - valorExtra)));
+            binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() + valorExtra)));
+            binding.textValor.setText(getString(R.string.valor, GetMask.getValor(itemPedidoDAO.getTotalPedido() + valorExtra)));
         } else {
             binding.textValorTotal.setText(getString(R.string.valor, GetMask.getValor(0)));
             binding.textValor.setText(getString(R.string.valor, GetMask.getValor(0)));

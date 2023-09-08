@@ -266,6 +266,8 @@ public class LojaFormProdutoActivity extends AppCompatActivity implements Catego
 
                            }else {
                                produto.salvar(false);
+                               Toast.makeText(this, "Produto editado com sucesso!", Toast.LENGTH_SHORT).show();
+                               finish();
                            }
                        }
 

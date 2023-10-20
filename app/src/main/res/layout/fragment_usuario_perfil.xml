@@ -21,13 +21,48 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-           <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+            <LinearLayout
                android:id="@+id/llLogado"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="vertical">
 
-               <LinearLayout
+
+
+
+                <LinearLayout
+                    android:id="@+id/bemvindo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginStart="24dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#3E3E3E"
+                        android:text="Óla, seja \nbem-vinda"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="120dp"
+                        android:src="@drawable/ic_img_entrar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:orientation="horizontal"
@@ -365,6 +400,60 @@
                <include layout="@layout/divisor"/>
 
            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/Boavindalogado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_favorite"
+                        app:tint="@color/color_status_pedido_aprovado"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="32dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Olá, Voçê esta logado"
+                            android:textSize="16dp"
+                            android:textColor="@color/color_status_pedido_aprovado"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Seja bem-vindo!"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/divisor"/>
+
+            </LinearLayout>
 
 
 

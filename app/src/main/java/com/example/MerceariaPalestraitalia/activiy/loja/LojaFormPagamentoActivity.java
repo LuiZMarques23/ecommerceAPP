@@ -20,7 +20,7 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
 
     private ActivityLojaFormPagamentoBinding binding;
     private FormaPagamento formaPagamento;
-    private  String tipoValor = null;
+    private String tipoValor = null;
     private boolean novoPagamento = true;
 
     @Override
@@ -32,60 +32,63 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
         recuperaDados();
     }
 
-    private void recuperaDados(){
+    private void recuperaDados() {
         getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
 
         iniciaComponentes();
         configClicks();
         getExtra();
     }
-    private void getExtra(){
+
+    private void getExtra() {
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+        if (bundle != null) {
             formaPagamento = (FormaPagamento) bundle.getSerializable("formaPagamentoSelecionada");
             configDados();
         }
     }
-    private void configDados(){
+
+    private void configDados() {
         novoPagamento = false;
 
         binding.edtFormaPagamento.setText(formaPagamento.getNome());
         binding.edtDescricaoPagamento.setText(formaPagamento.getDescricao());
         binding.edtValor.setText(String.valueOf(formaPagamento.getValor() * 10));
 
-        if (formaPagamento.getTipoValor().equals("DESC")){
+        if (formaPagamento.getTipoValor().equals("DESC")) {
             binding.rgValor.check(R.id.rbDesconto);
 
-        }else {
+        } else {
             binding.rgValor.check(R.id.rbAcrescimo);
         }
 
         binding.cbCredito.setChecked(formaPagamento.isCredito());
 
     }
-    private void configClicks(){
+
+    private void configClicks() {
         binding.include.include.ibVoltar.setOnClickListener(view -> finish());
         binding.include.btnSalvar.setOnClickListener(view -> validaDados());
 
         binding.rgValor.setOnCheckedChangeListener((radioGroup, i) -> {
-            if (i == R.id.rbDesconto){
+            if (i == R.id.rbDesconto) {
                 tipoValor = "DESC";
-            }else if (i == R.id.rbAcrescimo){
+            } else if (i == R.id.rbAcrescimo) {
                 tipoValor = "ACRES";
             }
 
         });
 
 
-
     }
-    private void validaDados(){
+
+    private void validaDados() {
         String nome = binding.edtFormaPagamento.getText().toString().trim();
         String descricao = binding.edtDescricaoPagamento.getText().toString().trim();
         double valor = (double) binding.edtValor.getRawValue() / 100;
 
-        if (!nome.isEmpty()){
-            if (!descricao.isEmpty()){
+        if (!nome.isEmpty()) {
+            if (!descricao.isEmpty()) {
 
                 ocultaTeclado();
 
@@ -98,34 +101,35 @@ public class LojaFormPagamentoActivity extends AppCompatActivity {
                 formaPagamento.setTipoValor(tipoValor);
                 formaPagamento.setCredito(binding.cbCredito.isChecked());
 
-                if (formaPagamento.getTipoValor() != null){
+                if (formaPagamento.getTipoValor() != null) {
                     formaPagamento.salvar();
 
-                }else {
+                } else {
                     binding.progressBar.setVisibility(View.GONE);
                     Toast.makeText(this, "Selecione o tipo do valor", Toast.LENGTH_SHORT).show();
                 }
 
-                if (novoPagamento){
+                if (novoPagamento) {
                     Intent intent = new Intent();
                     intent.putExtra("novoPagamento", formaPagamento);
                     setResult(RESULT_OK, intent);
                     finish();
-                }else {
+                } else {
                     binding.progressBar.setVisibility(View.GONE);
                     Toast.makeText(this, "Forma de pagamento salva com sucesso.", Toast.LENGTH_SHORT).show();
                 }
 
-            }else {
+            } else {
                 binding.edtFormaPagamento.requestFocus();
                 binding.edtFormaPagamento.setError("Informação obrigatório!");
+
             }
 
-        }else {
+        } else {
             binding.edtDescricaoPagamento.requestFocus();
             binding.edtDescricaoPagamento.setError("Informação obrigatório!");
-        }
 
+        }
 
     }
 

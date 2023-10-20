@@ -77,10 +77,14 @@ public class UsuarioPerfilFragment extends Fragment {
     private void configMenu(){
         if (FirebaseHelper.getAutenticado()){
             binding.llLogado.setVisibility(View.GONE);
+            binding.bemvindo.setVisibility(View.GONE);
             binding.btnDeslogar.setVisibility(View.VISIBLE);
+            binding.Boavindalogado.setVisibility(View.VISIBLE);
         }else {
             binding.llLogado.setVisibility(View.VISIBLE);
+            binding.bemvindo.setVisibility(View.VISIBLE);
             binding.btnDeslogar.setVisibility(View.GONE);
+            binding.Boavindalogado.setVisibility(View.GONE);
 
 
         }

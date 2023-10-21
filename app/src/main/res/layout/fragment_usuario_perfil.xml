@@ -432,7 +432,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Olá, Voçê esta logado"
+                            android:text="Olá, Você está Online"
                             android:textSize="16dp"
                             android:textColor="@color/color_status_pedido_aprovado"/>
 

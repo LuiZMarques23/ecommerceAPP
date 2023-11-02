@@ -18,6 +18,7 @@ import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioEnderecoActivi
 import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioPerfilActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.CadastroActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
+import com.example.MerceariaPalestraitalia.autenticacao.LoginEmpresaActivity;
 import com.example.MerceariaPalestraitalia.databinding.FragmentUsuarioPerfilBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 
@@ -64,13 +65,14 @@ public class UsuarioPerfilFragment extends Fragment {
         binding.btnPolitica.setOnClickListener(view -> startActivity(PoliticaActivity.class));
         binding.btnAjuda.setOnClickListener(view -> startActivity(AjudaActivity.class));
         binding.btnTermosUso.setOnClickListener(view -> startActivity(TermoUsoActivity.class));
+        binding.btnEmpresa.setOnClickListener(view -> startActivity(LoginEmpresaActivity.class));
     }
 
     private void startActivity(Class<?> clazz){
         if (FirebaseHelper.getAutenticado()){
             startActivity(new Intent(requireContext(),clazz));
         }else {
-            startActivity(new Intent(requireContext(),LoginActivity.class));
+            startActivity(new Intent(requireContext(),LoginEmpresaActivity.class));
         }
     }
 
@@ -80,11 +82,13 @@ public class UsuarioPerfilFragment extends Fragment {
             binding.bemvindo.setVisibility(View.GONE);
             binding.btnDeslogar.setVisibility(View.VISIBLE);
             binding.Boavindalogado.setVisibility(View.VISIBLE);
+            binding.btnEmpr.setVisibility(View.GONE);
         }else {
             binding.llLogado.setVisibility(View.VISIBLE);
             binding.bemvindo.setVisibility(View.VISIBLE);
             binding.btnDeslogar.setVisibility(View.GONE);
             binding.Boavindalogado.setVisibility(View.GONE);
+            binding.btnEmpr.setVisibility(View.VISIBLE);
 
 
         }

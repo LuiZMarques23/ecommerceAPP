@@ -44,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
-                        android:layout_marginStart="24dp"
+                        android:layout_marginStart="20dp"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="#3E3E3E"
@@ -56,6 +56,7 @@
                         android:id="@+id/imageView"
                         android:layout_width="wrap_content"
                         android:layout_height="120dp"
+                        android:layout_marginStart="120dp"
                         android:src="@drawable/ic_img_entrar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -297,7 +298,6 @@
 
 
 
-
             <LinearLayout
                 android:id="@+id/btnAjuda"
                 android:layout_width="match_parent"
@@ -344,6 +344,8 @@
             </LinearLayout>
 
             <include layout="@layout/divisor"/>
+
+
 
 
 
@@ -453,9 +455,40 @@
 
                 <include layout="@layout/divisor"/>
 
+
+
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/btnEmpr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="95dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent">
 
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Exclusivo para !" />
+
+                <TextView
+                    android:id="@+id/btnEmpresa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:paddingVertical="16dp"
+                    android:text="Empresas"
+                    android:textColor="@color/color_azul"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

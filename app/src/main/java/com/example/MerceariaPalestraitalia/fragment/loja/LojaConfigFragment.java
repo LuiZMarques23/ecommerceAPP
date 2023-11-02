@@ -35,6 +35,13 @@ public class LojaConfigFragment extends Fragment {
         configClicks();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        configMenu();
+    }
+
     private void configClicks(){
         binding.btnConfigLoja.setOnClickListener(v -> {
             startActivity(LojaConfigActivity.class);
@@ -53,6 +60,20 @@ public class LojaConfigFragment extends Fragment {
     }
     private void startActivity(Class<?> clazz){
         startActivity(new Intent(requireContext(),clazz));
+    }
+
+    private void configMenu(){
+        if (FirebaseHelper.getAutenticado()){
+            
+            binding.BoaLogado.setVisibility(View.VISIBLE);
+
+        }else {
+
+            binding.BoaLogado.setVisibility(View.GONE);
+
+
+
+        }
     }
 
 }

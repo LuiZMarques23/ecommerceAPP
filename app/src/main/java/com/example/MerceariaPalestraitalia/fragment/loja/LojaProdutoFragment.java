@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.bumptech.glide.Glide;
 import com.example.MerceariaPalestraitalia.R;
 import com.example.MerceariaPalestraitalia.activiy.loja.LojaFormProdutoActivity;
+import com.example.MerceariaPalestraitalia.adapter.LojaPedidoAdapter;
 import com.example.MerceariaPalestraitalia.adapter.LojaProdutoAdapter;
 import com.example.MerceariaPalestraitalia.databinding.DialogLojaProdutoBinding;
 import com.example.MerceariaPalestraitalia.databinding.FragmentLojaProdudoBinding;
@@ -67,6 +68,9 @@ public class LojaProdutoFragment extends Fragment implements LojaProdutoAdapter.
         binding.toolbar.btnAdd.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), LojaFormProdutoActivity.class));
         });
+
+
+
 
     }
     private void configRv(){

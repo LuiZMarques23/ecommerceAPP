@@ -412,36 +412,36 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginStart="24dp"
                         android:src="@drawable/ic_favorite"
-                        app:tint="@color/color_status_pedido_aprovado"/>
+                        app:tint="@color/color_status_pedido_aprovado" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="32dp"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Olá, Você está Online"
-                            android:textSize="16dp"
-                            android:textColor="@color/color_status_pedido_aprovado"/>
+                            android:textColor="@color/color_status_pedido_aprovado"
+                            android:textSize="16dp" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Seja bem-vindo!"/>
+                            android:text="Seja bem-vindo!" />
 
                     </LinearLayout>
 
@@ -449,7 +449,7 @@
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="24dp"/>
+                        android:layout_marginEnd="24dp" />
 
                 </LinearLayout>
 
@@ -478,7 +478,7 @@
                     android:text="Exclusivo para !" />
 
                 <TextView
-                    android:id="@+id/btnEmpresa"
+                    android:id="@+id/btnEmpresa2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"

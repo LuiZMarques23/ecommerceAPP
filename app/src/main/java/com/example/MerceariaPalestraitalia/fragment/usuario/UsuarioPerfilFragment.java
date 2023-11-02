@@ -18,7 +18,6 @@ import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioEnderecoActivi
 import com.example.MerceariaPalestraitalia.activiy.usuario.UsuarioPerfilActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.CadastroActivity;
 import com.example.MerceariaPalestraitalia.autenticacao.LoginActivity;
-import com.example.MerceariaPalestraitalia.autenticacao.LoginEmpresaActivity;
 import com.example.MerceariaPalestraitalia.databinding.FragmentUsuarioPerfilBinding;
 import com.example.MerceariaPalestraitalia.helper.FirebaseHelper;
 
@@ -50,29 +49,39 @@ public class UsuarioPerfilFragment extends Fragment {
 
     private void configClicks(){
         binding.btnEntrar.setOnClickListener(view ->  startActivity(LoginActivity.class));
+        binding.btnEmpresa2.setOnClickListener(view ->  startActivity(UsuarioPerfilActivity.class));
         binding.btnMeusDados.setOnClickListener(view ->  startActivity(UsuarioPerfilActivity.class));
         binding.btnCadastrar.setOnClickListener(view ->  {
             startActivity(new Intent(requireContext(), CadastroActivity.class));
+
         });
         binding.btnDeslogar.setOnClickListener(view -> {
             FirebaseHelper.getAuth().signOut();
             requireActivity().finish();
 
             startActivity(new Intent(requireContext(), MainActivityUsuario.class));
+
         });
         binding.btnEnderecos.setOnClickListener(view -> startActivity( UsuarioEnderecoActivity.class));
 
         binding.btnPolitica.setOnClickListener(view -> startActivity(PoliticaActivity.class));
         binding.btnAjuda.setOnClickListener(view -> startActivity(AjudaActivity.class));
         binding.btnTermosUso.setOnClickListener(view -> startActivity(TermoUsoActivity.class));
-        binding.btnEmpresa.setOnClickListener(view -> startActivity(LoginEmpresaActivity.class));
+
+
+
+
     }
 
     private void startActivity(Class<?> clazz){
         if (FirebaseHelper.getAutenticado()){
             startActivity(new Intent(requireContext(),clazz));
         }else {
-            startActivity(new Intent(requireContext(),LoginEmpresaActivity.class));
+
+            startActivity(new Intent(requireContext(),LoginActivity.class));
+
+
+
         }
     }
 

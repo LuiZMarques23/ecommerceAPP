@@ -24,6 +24,6 @@ public class AjudaActivity extends AppCompatActivity {
     }
 
     private void corStatusBar(){
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
+        getWindow().setStatusBarColor(Color.parseColor("#03A9F4"));
     }
 }

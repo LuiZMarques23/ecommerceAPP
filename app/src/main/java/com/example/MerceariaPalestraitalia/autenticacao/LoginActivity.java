@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getWindow().setStatusBarColor(Color.parseColor("#FFFFFF"));
+        getWindow().setStatusBarColor(Color.parseColor("#03A9F4"));
 
         configCliques();
 

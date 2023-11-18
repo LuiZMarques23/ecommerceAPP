@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".autenticacao.RecuperaContaActivity">
 
+    <ImageView
+        android:foreground="@drawable/btn_bg_design"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg2"
+        android:scaleType="centerCrop"/>
+
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="0dp"
@@ -35,6 +42,8 @@
                 android:layout_height="wrap_content"
                 android:text="Informe seu e-mail que enviaremos \num link para alteração da senha."
                 android:textAlignment="center"
+                android:fontFamily="@font/lobster"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +54,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="24dp"
-                android:background="@drawable/bg_edit_off"
+                android:textColor="@color/white"
+                android:backgroundTint="#CCCCCC"
+                android:textColorHint="@color/white"
                 android:drawableStart="@drawable/ic_email_off"
                 android:drawablePadding="16dp"
                 android:hint="Email"

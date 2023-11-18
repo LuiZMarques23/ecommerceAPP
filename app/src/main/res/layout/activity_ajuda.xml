@@ -15,35 +15,31 @@
 
 
     <ImageView
-        android:id="@+id/imageView10"
+        android:id="@+id/imageView12"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:src="@drawable/loja"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/btn_bg_design"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
-        app:tint="@color/color_azul" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/color_cinza"
-        app:layout_constraintTop_toBottomOf="@+id/textView16"
-        tools:layout_editor_absoluteX="28dp" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/textView25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Mercearia do ze "
-        android:textColor="@color/black"
-        android:textSize="40sp"
+        android:fontFamily="@font/lobster"
+        android:text="Mercearia do Ze"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="33sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView12"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias=".11"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -55,6 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
+
     <TextView
         android:id="@+id/textView18"
         android:layout_width="match_parent"
@@ -62,11 +59,23 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="20dp"
         android:text="@string/contatos"
-        android:textColor="@color/color_azul"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Versâo 0.1"
+        android:textAlignment="center"
+        android:textColor="#FBFBFB"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
-
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <TextView
         android:id="@+id/textView19"
@@ -75,7 +84,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Horário de funcionamento"
-        android:textColor="@color/black"
+        android:textColor="@color/color_azul"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +98,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Segunda a sábado 07:00 19:00\n Domingo 07:00 a 12:00"
-        android:textColor="@color/color_azul"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -113,7 +122,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Contatos"
-        android:textColor="@color/black"
+        android:textColor="@color/color_azul"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +146,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="(31) 99883-3721 \nmerceariaf8@gmail.com"
-        android:textColor="@color/color_azul"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -148,7 +157,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Horário de entregas"
-        android:textColor="@color/black"
+        android:textColor="@color/color_azul"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -157,12 +166,13 @@
 
 
     <TextView
+        android:id="@+id/textView16"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Segunda a Sábado 8:30 a 18:00 \n aos Domingo 8:30 a 12:00 \n entregamos centro bonfim"
-        android:textColor="@color/color_azul"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".notificacao.ApplicationClass"
+        android:name=".model.notificacao.ApplicationClass"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -88,7 +88,7 @@
             android:name=".autenticacao.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name=".autenticacao.RecuperaContaActivity"
+            android:name=".tesrt.guyguyg.RecuperaContaActivity"
             android:exported="false" />
         <activity
             android:name=".autenticacao.LoginActivity"

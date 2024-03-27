@@ -1,4 +1,4 @@
-package com.example.MerceariaPalestraitalia.notificacao;
+package com.example.MerceariaPalestraitalia.model.notificacao;
 
 import android.app.Application;
 

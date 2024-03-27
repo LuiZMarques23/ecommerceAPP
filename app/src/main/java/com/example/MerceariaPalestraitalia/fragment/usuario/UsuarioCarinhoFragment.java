@@ -130,7 +130,9 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
 
     private void configTotalCarrinho(){
         binding.textValor.setText(getString(R.string.valor_total_carrinho, GetMask.getValor(itemPedidoDAO.getTotalPedido())));
+
     }
+
 
     private void configQtdProduto(int position, String opercao ){
         ItemPedido itemPedido = itemPedidoList.get(position);
@@ -154,6 +156,7 @@ public class UsuarioCarinhoFragment extends Fragment implements CarrinhoAdapter.
                 itemPedidoList.set(position, itemPedido);
 
             }
+
 
         }
 

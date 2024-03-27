@@ -1,4 +1,4 @@
-package com.example.MerceariaPalestraitalia.autenticacao;
+package com.example.MerceariaPalestraitalia.tesrt.guyguyg;
 
 import android.graphics.Color;
 import android.os.Bundle;

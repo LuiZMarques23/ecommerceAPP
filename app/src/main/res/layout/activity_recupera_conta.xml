@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".autenticacao.RecuperaContaActivity">
+    tools:context=".tesrt.guyguyg.RecuperaContaActivity">
 
     <ImageView
         android:foreground="@drawable/btn_bg_design"

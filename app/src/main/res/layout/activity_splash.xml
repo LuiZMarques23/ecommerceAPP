@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lobster"
-        android:text="Mercearia do Ze"
+        android:text="Mercado Palestra itália"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="33sp"
